@@ -1,0 +1,26 @@
+.invisible-tab-set {
+  --sd-color-tabs-overline: rgba(0, 0, 0, 0);
+  --sd-color-tabs-underline: rgba(0, 0, 0, 0);
+}
+
+.invisible-tab-set label, .invisible-tab-set input {
+  display: none;
+}
+
+.invisible-tab-set .sd-tab-content {
+  padding: 0;
+}
+
+.sidebar-lang-select {
+  padding: var(--sidebar-item-spacing-vertical) var(--sidebar-item-spacing-horizontal);
+  font-size: var(--sidebar-caption-font-size);
+  color: var(--color-sidebar-caption-text);
+}
+
+#lang-select {
+  font-size: var(--sidebar-caption-font-size);
+}
+
+.hidden {
+  display: none;
+}
