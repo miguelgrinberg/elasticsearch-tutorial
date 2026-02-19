@@ -1,0 +1,23 @@
+name: Deploy to Github Pages
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup python
+        uses: actions/setup-python@v6
+      - name: Build site
+        run: |
+          pip install -r requirements.txt
+          make html
+          touch _build/html/.nojekyll
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: _build/html
