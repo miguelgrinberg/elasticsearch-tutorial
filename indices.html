@@ -1,0 +1,781 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Searching" href="searching.html"><link rel="prev" title="Connecting to Elasticsearch" href="connecting.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Working with Documents and Indices - Elasticsearch Tutorial</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/ext_lang.css?v=1c60b765" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Elasticsearch Tutorial</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">Elasticsearch Tutorial</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project-setup.html">Project Set Up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running-elasticsearch.html">Running Elasticsearch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connecting.html">Connecting to Elasticsearch</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Working with Documents and Indices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searching.html">Searching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/indices.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="working-with-documents-and-indices">
+<h1>Working with Documents and Indices<a class="headerlink" href="#working-with-documents-and-indices" title="Link to this heading">¶</a></h1>
+<div class="sd-tab-set invisible-tab-set hidden docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-1">
+JavaScript</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
+</div>
+<p>Two very important concepts in Elasticsearch are <em>documents</em> and <em>indices</em>.</p>
+<p>A document is collection of fields with their associated values. To work with Elasticsearch you have to organize your data into documents, and then add all your documents to an index. You can think of an index as a collection of documents that are stored in a highly optimized format designed to perform efficient searches.</p>
+<p>If you have worked with other databases, you may know that many of them require a schema definition, which is essentially a detailed description of data that you want to store. An Elasticsearch index can be configured with a schema or <em>mapping</em> if desired, but the mapping can automatically be derived from the data as it is added. In this tutorial you are going to let Elasticsearch figure out the mapping on its own, which works quite well for simple data types such as text, numbers and dates.</p>
+<section id="creating-an-index">
+<h2>Creating an index<a class="headerlink" href="#creating-an-index" title="Link to this heading">¶</a></h2>
+<p>This is how you create an Elasticsearch index using the Python client library:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;documents&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-3">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Indices in Elasticsearch are identified with a name, which is passed as an argument to most methods of the client. An Elasticsearch server can store multiple indices, each with its own collection of documents.</p>
+</div>
+<p>Here is how to delete an index:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;documents&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-5">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="ow">delete</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you attempt to create an index with a name that is already assigned to an existing index, you will get an error.</p>
+<p>Next you will add a <span class="lang-choices lang-id">createIndex,py:create_index</span> method to the application, along with a few other improvements.</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
+Python</label><div class="sd-tab-content docutils">
+<p>Replace the contents of your <em><a class="reference external" href="http://main.py">main.py</a></em> file to the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">elasticsearch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Elasticsearch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">elasticsearch.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">bulk</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DB</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ELASTICSEARCH_URL&#39;</span><span class="p">],</span>
+                                    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;ELASTIC_API_KEY&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ignore_unavailable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="c1"># more methods will be added here later</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="s1">&#39;documents&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;check&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">check</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;create&#39;</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">create_index</span><span class="p">()</span>
+    <span class="c1"># more commands will be added here later</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check and create&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
+JavaScript</label><div class="sd-tab-content docutils">
+<p>Replace the contents of your <em>main.js</em> file to the following code:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">readline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;readline&#39;</span><span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dotenv&#39;</span><span class="p">).</span><span class="nx">config</span><span class="p">({</span><span class="w"> </span><span class="nx">quiet</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Client</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@elastic/elasticsearch&#39;</span><span class="p">);</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">DB</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Client</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">node</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ELASTICSEARCH_URL</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">auth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ELASTIC_API_KEY</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">index</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">check</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">info</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">createIndex</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="ow">delete</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">ignore_unavailable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+<span class="p">}</span>
+
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DB</span><span class="p">(</span><span class="s1">&#39;documents&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;check&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">check</span><span class="p">());</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;create&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;documents&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check and create&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">main</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are a few improvements in this version of the project.</p>
+<p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
+<p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class now takes the <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument. This name is stored in an <code class="docutils literal notranslate"><span class="pre">index</span></code> instance variable.</p>
+<p>The new <span class="lang-choices lang-id">createIndex,py:create_index</span> method first deletes the index with the name that was passed in the constructor. The <code class="docutils literal notranslate"><span class="pre">ignore_unavailable</span></code> option, given to the <code class="docutils literal notranslate"><span class="pre">delete</span></code> call, prevents a failure when the index name isn’t found. After deleting the index, a new index is created with that name.</p>
+<p>Then at the bottom, an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is created with the index name <code class="docutils literal notranslate"><span class="pre">documents</span></code>, and then a simple command-line parser looks for a <code class="docutils literal notranslate"><span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">create</span></code> argument. For <code class="docutils literal notranslate"><span class="pre">check</span></code>, it prints the results of calling the <code class="docutils literal notranslate"><span class="pre">check</span></code> method as the previous version of the application, and for <code class="docutils literal notranslate"><span class="pre">create</span></code>, it calls the new <span class="lang-choices lang-id">createIndex,py:create_index</span> method.</p>
+<p>Try calling this new version of the application with the <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> arguments as follows:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-8">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># to check the Elasticsearch connection</span>
+python<span class="w"> </span>main.py<span class="w"> </span>check
+
+<span class="c1"># to recreate the index</span>
+python<span class="w"> </span>main.py<span class="w"> </span>create
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-9">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># to check the Elasticsearch connection</span>
+node<span class="w"> </span>main.js<span class="w"> </span>check
+
+<span class="c1"># to recreate the index</span>
+node<span class="w"> </span>main.js<span class="w"> </span>create
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-documents-to-an-index">
+<h2>Adding documents to an index<a class="headerlink" href="#adding-documents-to-an-index" title="Link to this heading">¶</a></h2>
+<p>Elasticsearch documents are represented as <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON</a> objects with a set of key/value pairs. To add a document to an index, the <code class="docutils literal notranslate"><span class="pre">index</span></code> method of the Elasticsearch client is used. Here is an example:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-10">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">document</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;contents&#39;</span><span class="p">:</span> <span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;created_on&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;my_documents&#39;</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-11">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">contents</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">index</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, the <code class="docutils literal notranslate"><span class="pre">id</span></code> field assigns an unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.</p>
+<p>Let’s add two more methods to the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+
+    <span class="c1"># more methods will be added here later</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-13">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">addDocument</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">index</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">getDocument</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <span class="lang-choices lang-id">addDocument,py:add_document</span> method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.</p>
+<p>The <span class="lang-choices lang-id">getDocument,py:get_document</span> method takes a document identifier as an argument, and returns the document as a response.</p>
+<p>To see the new methods in action, extend the command-line parsing at the bottom of the application with new <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">get</span></code> options:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-14" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-14">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">add_document</span><span class="p">({</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;created_on&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
+        <span class="p">},</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;get&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="c1"># more commands will be added here later</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add and get&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-15" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-15">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;add&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">getDocument</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add and get&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The new <code class="docutils literal notranslate"><span class="pre">add</span></code> command inserts a test document into the index, identified as <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">get</span></code> command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-16" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-16">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert a test document with id=&quot;1&quot;</span>
+python<span class="w"> </span>main.py<span class="w"> </span>add
+
+<span class="c1"># retrieve document with id=&quot;1&quot;</span>
+python<span class="w"> </span>main.py<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-17" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-17">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert a test document with id=&quot;1&quot;</span>
+node<span class="w"> </span>main.js<span class="w"> </span>add
+
+<span class="c1"># retrieve document with id=&quot;1&quot;</span>
+node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">get</span></code> command should print the following information:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nx">_index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_version</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_seq_no</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_primary_term</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">found</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_source</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this response, the actual contents of the document are in the <code class="docutils literal notranslate"><span class="pre">_source</span></code> field. The other top-level fields are document metadata. You probably recognize the <code class="docutils literal notranslate"><span class="pre">_id</span></code> field, which has the document identifier, and <code class="docutils literal notranslate"><span class="pre">_index</span></code>, which has the index name.</p>
+</section>
+<section id="ingesting-documents-in-bulk">
+<h2>Ingesting documents in bulk<a class="headerlink" href="#ingesting-documents-in-bulk" title="Link to this heading">¶</a></h2>
+<p>When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client’s <code class="docutils literal notranslate"><span class="pre">index</span></code> method for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a <em>bulk</em> feature that allows you to send multiple index operations in a single call.</p>
+<p>Now you are going to implement a bulk ingest option using a dataset in <a class="reference external" href="https://github.com/ndjson/ndjson-spec">NDJSON</a> format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using <code class="docutils literal notranslate"><span class="pre">curl</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>data.ndjson<span class="w"> </span>https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/332f8c8de4191ec6694228b587e40a3eb80c15cb/data.ndjson
+</pre></div>
+</div>
+<p>The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.</p>
+<p>The <span class="lang-choices lang-id">addManyDocuments,py:add_many_documents</span> method shown below implements the bulk ingest solution.</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-18">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_many_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_next_document</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">document</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                    <span class="nb">id</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;_index&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;_id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span> <span class="s1">&#39;_source&#39;</span><span class="p">:</span> <span class="n">document</span><span class="p">}</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">get_next_document</span><span class="p">(),</span> <span class="n">stats_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Bulk ingest failure&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># more methods will be added here later</span>
+</pre></div>
+</div>
+<p>Let’s start to analyze this method from the <code class="docutils literal notranslate"><span class="pre">bulk</span></code> call. This function takes the client and a list of actions to perform as arguments. The <code class="docutils literal notranslate"><span class="pre">stats_only</span></code> given last requests that the return value from this function is just a summary of operations. This result will come as a tuple of two numbers indicating how many documents were processed and how many failed. For this application if there is at least one error a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> is raised. On success, the method returns the number of documents that were inserted into the index.</p>
+<p>The core of the bulk ingest process is in the <code class="docutils literal notranslate"><span class="pre">actions</span></code> argument, which is set to a <code class="docutils literal notranslate"><span class="pre">get_next_document</span></code> generator function. The bulk helper will call the generator to get the documents. It will compile these documents into chunks, and send each chunk to Elasticsearch. There are optional arguments that can be passed to the <code class="docutils literal notranslate"><span class="pre">bulk</span></code> helper to control how the chunking process works.</p>
+<p>The implementation of the <code class="docutils literal notranslate"><span class="pre">get_next_document</span></code> generator function opens the NDJSON data file and reads it one line at a time in a loop. For each line, it parses it as a JSON object and then it yields a dictionary with the target index name (in the <code class="docutils literal notranslate"><span class="pre">_index</span></code> key), the desired identifier for the document (in the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key) and the document data (in the <code class="docutils literal notranslate"><span class="pre">_source</span></code> key).</p>
+<p>To assign unique identifiers to documents, the generator function maintains a counter which gets incremented for each document. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key to have Elasticsearch generate random identifiers.</p>
+</div>
+<input id="sd-tab-item-19" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-19">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">addManyDocuments</span><span class="p">(</span><span class="nx">dataFile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">getNextDocument</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">fileStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">dataFile</span><span class="p">);</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">rl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">readline</span><span class="p">.</span><span class="nx">createInterface</span><span class="p">({</span><span class="w"> </span><span class="nx">input</span><span class="o">:</span><span class="w"> </span><span class="nx">fileStream</span><span class="p">,</span><span class="w"> </span><span class="nx">crlfDelay</span><span class="o">:</span><span class="w"> </span><span class="kc">Infinity</span><span class="w"> </span><span class="p">});</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">rl</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">yield</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">line</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">helpers</span><span class="p">.</span><span class="nx">bulk</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">datasource</span><span class="o">:</span><span class="w"> </span><span class="nx">getNextDocument</span><span class="p">(),</span>
+<span class="w">      </span><span class="nx">onDocument</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_index</span><span class="o">:</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="o">++</span><span class="nx">counter</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">failed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Some documents failed to ingest.&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+</pre></div>
+</div>
+<p>Let’s start to analyze this method from the <code class="docutils literal notranslate"><span class="pre">helpers.bulk</span></code> method of the client. This method takes the a list of actions to perform in the <code class="docutils literal notranslate"><span class="pre">datasource</span></code> argument, and a document processing function in <code class="docutils literal notranslate"><span class="pre">onDocument</span></code>. The return value of this method is an object with several details about the bulk operation, in particular how many documents were processed successfully and how many failed. For this application an excecption is raised if there is at least one error. On success, the method returns the number of documents that were inserted into the index.</p>
+<p>The ingest process is fed by the <code class="docutils literal notranslate"><span class="pre">datasource</span></code> argument, which in this case is the <code class="docutils literal notranslate"><span class="pre">getNextDocument</span></code> generator function. The function opens the data file and reads it one line at a time. Each line is parsed as a JSON object and returned it.</p>
+<p>As the bulk helper receives each document from the generator function, it calls the <code class="docutils literal notranslate"><span class="pre">onDocument</span></code> function with it as an argument. This function returns the operation that needs to be performed with this document. By returning an object with an <code class="docutils literal notranslate"><span class="pre">index</span></code> key it indicates that the document is to be stored in the index. The <code class="docutils literal notranslate"><span class="pre">_index</span></code> and <code class="docutils literal notranslate"><span class="pre">_id</span></code> provide the name of the index and the unique identifier respectively.</p>
+<p>The identifiers are generated from a numeric incrementing counter in this case. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key to have Elasticsearch generate random identifiers.</p>
+</div>
+</div>
+<p>Let’s add a new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command to the application that uses the new method:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-20" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-20">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bulk&#39;</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">add_many_documents</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ingested </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> documents.&#39;</span><span class="p">)</span>
+    <span class="c1"># more commands will be added here later</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add, get and bulk&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-21" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-21">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;bulk&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addManyDocuments</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Ingested </span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb"> documents.`</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add, get and bulk&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the <em>data.ndjson</em> file as instructed above, and then run the ingest as follows:</p>
+<div class="sd-tab-set invisible-tab-set docutils">
+<input checked="checked" id="sd-tab-item-22" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-22">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py<span class="w"> </span>bulk<span class="w"> </span>data.ndjson
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-23" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-23">
+JavaScript</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>node<span class="w"> </span>main.js<span class="w"> </span>bulk<span class="w"> </span>data.ndjson
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output of this command should indicate that 15 documents were ingested.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>While this tutorial uses a small example dataset, the bulk ingest solution presented here is very robust and is able to scale to very large amounts of data. Thanks to the use of generators and the chunking applied by the bulk helper, it is possible to ingest datasets that are larger than the amount of memory available to the process.</p>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="searching.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Searching</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="connecting.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Connecting to Elasticsearch</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, Miguel Grinberg
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Working with Documents and Indices</a><ul>
+<li><a class="reference internal" href="#creating-an-index">Creating an index</a></li>
+<li><a class="reference internal" href="#adding-documents-to-an-index">Adding documents to an index</a></li>
+<li><a class="reference internal" href="#ingesting-documents-in-bulk">Ingesting documents in bulk</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/ext_lang.js?v=027926fc"></script>
+    </body>
+</html>
