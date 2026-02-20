@@ -119,59 +119,59 @@ Copy the following code into a file named *main.go* in your project directory:
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"log"
-	"os"
+    "context"
+    "encoding/json"
+    "fmt"
+    "log"
+    "os"
 
-	"github.com/elastic/go-elasticsearch/v9"
-	"github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
-	"github.com/joho/godotenv"
+    "github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+    "github.com/joho/godotenv"
 )
 
 type DB struct {
-	Client *elasticsearch.TypedClient
+    Client *elasticsearch.TypedClient
 }
 
 func NewDB() (*DB, error) {
-	client, err := elasticsearch.NewTypedClient(
-		elasticsearch.Config{
-			Addresses: []string{os.Getenv("ELASTICSEARCH_URL")},
-			APIKey:    os.Getenv("ELASTIC_API_KEY"),
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &DB{Client: client}, nil
+    client, err := elasticsearch.NewTypedClient(
+        elasticsearch.Config{
+            Addresses: []string{os.Getenv("ELASTICSEARCH_URL")},
+            APIKey:    os.Getenv("ELASTIC_API_KEY"),
+        },
+    )
+    if err != nil {
+        return nil, err
+    }
+    return &DB{Client: client}, nil
 }
 
 func (db DB) Close(ctx context.Context) error {
-	return db.Client.Close(ctx)
+    return db.Client.Close(ctx)
 }
 
 func (db DB) Check(ctx context.Context) (*info.Response, error) {
-	return db.Client.Info().Do(ctx)
+    return db.Client.Info().Do(ctx)
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	db, err := NewDB()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close(context.Background())
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+    db, err := NewDB()
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close(context.Background())
 
-	response, err := db.Check(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	printableResponse, _ := json.Marshal(response)
-	fmt.Println(string(printableResponse))
+    response, err := db.Check(context.Background())
+    if err != nil {
+        log.Fatal(err)
+    }
+    printableResponse, _ := json.Marshal(response)
+    fmt.Println(string(printableResponse))
 }
 ```
 

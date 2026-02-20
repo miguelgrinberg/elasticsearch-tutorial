@@ -24,7 +24,7 @@ In this section you are going to learn how to run full-text searches on the inde
 
 Elasticsearch provides several options to conduct searchs. For this tutorial you are going to use the [Query DSL](https://www.elastic.co/docs/explore-analyze/query-filter/languages/querydsl), a JSON-style query language.
 
-## Searching an index field
+## Searching an index
 
 The most basic way to search an index is to look for a specific word or sequence of words in a text field of the index. In the Query DSL this is called a [Match](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-match-query) query.
 
@@ -264,11 +264,11 @@ Feel free to try other search terms to see different results. If you want to see
 
 ## Searching multiple fields at once
 
-The search from the previous section is configured to look at the `content` field of the index. In some cases this is sufficient, but many indexes (including the one in this tutorial) have more than one text field. When there are multiple text fields, it could be useful to run a search across all of the fields, and not just one.
+The search from the previous section is configured to look at the `content` field of the index. In some cases this is sufficient, but many indexes (including the `documents` index used in this tutorial) have more than one text field. When there are multiple text fields, it could be useful to run a search across all of the fields, and not just one.
 
 To run a search on multiple fields, the [Multi-match](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-multi-match-query) query can be used.
 
-Instead of adding yet another method, this time update the existing `search` method to use multi-match instead of the simple match:
+Instead of adding yet another method, this time update the existing `search,go:Search` {lang-text}`method,go:function` to use multi-match instead of single-field match:
 
 :::::{tab-set}
 :sync-group: lang

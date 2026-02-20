@@ -282,13 +282,16 @@ func main() {
         err = db.CreateIndex(context.Background())
     // add more commands before this line
     } else {
-        log.Fatal(fmt.Errorf("Error: unknown command"))
+        err = fmt.Errorf("Error: unknown command")
     }
     if err != nil {
         log.Fatal(err)
     }
 }
 ```
+
+First of all, you will notice there is a new `Document` type. This is going to be used later as storage for retrieved documents.
+
 ::::
 
 :::::
@@ -387,7 +390,7 @@ document := `{
     "category": "teams",
     "content": "The purpose of this full-time work-from-home policy is..."
 }`
-response, err := db.Client.Index(db.Index).Id("1").Raw(
+response, err := Client.Index(db.Index).Id("1").Raw(
     strings.NewReader(document),
 ).Do(context.Background())
 ```
