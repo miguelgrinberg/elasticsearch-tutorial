@@ -261,8 +261,8 @@ Go</label><div class="sd-tab-content docutils">
 </div>
 <p>In this section you are going to learn how to run full-text searches on the index you have built.</p>
 <p>Elasticsearch provides several options to conduct searchs. For this tutorial you are going to use the <a class="reference external" href="https://www.elastic.co/docs/explore-analyze/query-filter/languages/querydsl">Query DSL</a>, a JSON-style query language.</p>
-<section id="searching-an-index-field">
-<h2>Searching an index field<a class="headerlink" href="#searching-an-index-field" title="Link to this heading">¶</a></h2>
+<section id="searching-an-index">
+<h2>Searching an index<a class="headerlink" href="#searching-an-index" title="Link to this heading">¶</a></h2>
 <p>The most basic way to search an index is to look for a specific word or sequence of words in a text field of the index. In the Query DSL this is called a <a class="reference external" href="https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-match-query">Match</a> query.</p>
 <p>Here is an example of a match query:</p>
 <div class="sd-tab-set invisible-tabs docutils">
@@ -466,9 +466,9 @@ Go</label><div class="sd-tab-content docutils">
 </section>
 <section id="searching-multiple-fields-at-once">
 <h2>Searching multiple fields at once<a class="headerlink" href="#searching-multiple-fields-at-once" title="Link to this heading">¶</a></h2>
-<p>The search from the previous section is configured to look at the <code class="docutils literal notranslate"><span class="pre">content</span></code> field of the index. In some cases this is sufficient, but many indexes (including the one in this tutorial) have more than one text field. When there are multiple text fields, it could be useful to run a search across all of the fields, and not just one.</p>
+<p>The search from the previous section is configured to look at the <code class="docutils literal notranslate"><span class="pre">content</span></code> field of the index. In some cases this is sufficient, but many indexes (including the <code class="docutils literal notranslate"><span class="pre">documents</span></code> index used in this tutorial) have more than one text field. When there are multiple text fields, it could be useful to run a search across all of the fields, and not just one.</p>
 <p>To run a search on multiple fields, the <a class="reference external" href="https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-multi-match-query">Multi-match</a> query can be used.</p>
-<p>Instead of adding yet another method, this time update the existing <code class="docutils literal notranslate"><span class="pre">search</span></code> method to use multi-match instead of the simple match:</p>
+<p>Instead of adding yet another method, this time update the existing <code class="docutils literal notranslate"><span class="pre">search,go:Search</span></code> <span class="lang-choices lang-text">method,go:function</span> to use multi-match instead of single-field match:</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-15">
@@ -599,7 +599,7 @@ Go</label><div class="sd-tab-content docutils">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Searching</a><ul>
-<li><a class="reference internal" href="#searching-an-index-field">Searching an index field</a></li>
+<li><a class="reference internal" href="#searching-an-index">Searching an index</a></li>
 <li><a class="reference internal" href="#searching-multiple-fields-at-once">Searching multiple fields at once</a></li>
 </ul>
 </li>

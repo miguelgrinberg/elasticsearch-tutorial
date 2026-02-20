@@ -494,7 +494,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CreateIndex</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
 <span class="w">    </span><span class="c1">// add more commands before this line</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Error: unknown command&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Error: unknown command&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
@@ -502,6 +502,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>First of all, you will notice there is a new <code class="docutils literal notranslate"><span class="pre">Document</span></code> type. This is going to be used later as storage for retrieved documents.</p>
 </div>
 </div>
 <p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> <span class="lang-choices lang-text">class,go:struct</span> now takes <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument, the name of the index to use. This name is stored, so that it can be used in all operations later.</p>
@@ -584,7 +585,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="s">    &quot;category&quot;: &quot;teams&quot;,</span>
 <span class="s">    &quot;content&quot;: &quot;The purpose of this full-time work-from-home policy is...&quot;</span>
 <span class="s">}`</span>
-<span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Id</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">).</span><span class="nx">Raw</span><span class="p">(</span>
+<span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Client</span><span class="p">.</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Id</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">).</span><span class="nx">Raw</span><span class="p">(</span>
 <span class="w">    </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">document</span><span class="p">),</span>
 <span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
 </pre></div>

@@ -20,9 +20,9 @@
 
 :::::
 
-Congratulations, you have reach the end of this tutorial!
+Congratulations, you have reached the end of this tutorial!
 
-We hope you have enjoyed this tutorial and are encouraged to learn more about Elasticsearch. The Elasticsearch documentation provides a great deal of information. In particular you may find the following sections of interest in your learning journey:
+We hope you have enjoyed this tutorial and are encouraged to learn more about Elasticsearch. The Elasticsearch documentation provides a great deal of information. In particular you may find the following sections of interest as part of your learning journey:
 
 - [API documentation](https://www.elastic.co/docs/api/doc/elasticsearch/)
 - [Clients documentation](https://www.elastic.co/docs/reference/elasticsearch-clients)
@@ -399,7 +399,7 @@ func main() {
             }
         }
     } else {
-        log.Fatal(fmt.Errorf("Error: unknown command"))
+        err = fmt.Errorf("Error: unknown command")
     }
     if err != nil {
         log.Fatal(err)

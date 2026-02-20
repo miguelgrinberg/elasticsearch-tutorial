@@ -336,59 +336,59 @@ Go</label><div class="sd-tab-content docutils">
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
-<span class="w">	</span><span class="s">&quot;context&quot;</span>
-<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
-<span class="w">	</span><span class="s">&quot;log&quot;</span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;log&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
 
-<span class="w">	</span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9&quot;</span>
-<span class="w">	</span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/info&quot;</span>
-<span class="w">	</span><span class="s">&quot;github.com/joho/godotenv&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/info&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/joho/godotenv&quot;</span>
 <span class="p">)</span>
 
 <span class="kd">type</span><span class="w"> </span><span class="nx">DB</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="nx">Client</span><span class="w"> </span><span class="o">*</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">TypedClient</span>
+<span class="w">    </span><span class="nx">Client</span><span class="w"> </span><span class="o">*</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">TypedClient</span>
 <span class="p">}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">DB</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">NewTypedClient</span><span class="p">(</span>
-<span class="w">		</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
-<span class="w">			</span><span class="nx">Addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTICSEARCH_URL&quot;</span><span class="p">)},</span>
-<span class="w">			</span><span class="nx">APIKey</span><span class="p">:</span><span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTIC_API_KEY&quot;</span><span class="p">),</span>
-<span class="w">		</span><span class="p">},</span>
-<span class="w">	</span><span class="p">)</span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">client</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">NewTypedClient</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTICSEARCH_URL&quot;</span><span class="p">)},</span>
+<span class="w">            </span><span class="nx">APIKey</span><span class="p">:</span><span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTIC_API_KEY&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">client</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
 <span class="p">}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Check</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">info</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Info</span><span class="p">().</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Info</span><span class="p">().</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">godotenv</span><span class="p">.</span><span class="nx">Load</span><span class="p">()</span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Error loading .env file&quot;</span><span class="p">)</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">()</span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">godotenv</span><span class="p">.</span><span class="nx">Load</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Error loading .env file&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
 
-<span class="w">	</span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Check</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="nx">printableResponse</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">printableResponse</span><span class="p">))</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Check</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">printableResponse</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">printableResponse</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 </div>
