@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 In this section you are going to learn how to run full-text searches on the index you have built.
@@ -55,6 +60,11 @@ await self.client.search({
   }
 });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -103,6 +113,11 @@ The expresion `results['hits']['hits']` returns the list of documents that were 
 The expresion `results.hits.hits` returns the list of documents that were found.
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 :::{hint}
@@ -142,6 +157,11 @@ To use the search feature, add a `search` command-line argument that runs a sear
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 You can see that each result includes a `_score` attribute. This is the relevance score, with higher values meaning higher relevance. The `_source` field includes the document data, and `_id` includes the unique identifier of the document, both seen already.
@@ -164,6 +184,11 @@ python main.py search "work from home"
 ```bash
 node main.js search "work from home"
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -232,6 +257,11 @@ Instead of adding yet another method, this time update the existing `search` met
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 The multi-match query uses a slightly different format that makes it possible to provide a list of fields to search. If you repeat a search with the updated search you will likely notice that the ranking of results is different, because now the three text fields in the index are used instead of just one.
@@ -250,20 +280,3 @@ Below you can see the results for the "work for home" search used above. Note ho
 [1.107] New Employee Onboarding Guide (id:15)
 [0.994] Sales Engineering Collaboration (id:7)
 ```
-
-:::::{tab-set}
-:sync-group: lang
-:class: invisible-tabs
-
-::::{tab-item} Python
-:sync: py
-&nbsp;
-::::
-
-::::{tab-item} JavaScript
-:sync: js
-&nbsp;
-::::
-
-:::::
-

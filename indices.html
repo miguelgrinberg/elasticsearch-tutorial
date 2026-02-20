@@ -253,6 +253,11 @@ Python</label><div class="sd-tab-content docutils">
 JavaScript</label><div class="sd-tab-content docutils">
 <p> </p>
 </div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-2">
+Go</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
 </div>
 <p>Two very important concepts in Elasticsearch are <em>documents</em> and <em>indices</em>.</p>
 <p>A document is collection of fields with their associated values. To work with Elasticsearch you have to organize your data into documents, and then add all your documents to an index. You can think of an index as a collection of documents that are stored in a highly optimized format designed to perform efficient searches.</p>
@@ -261,19 +266,24 @@ JavaScript</label><div class="sd-tab-content docutils">
 <h2>Creating an index<a class="headerlink" href="#creating-an-index" title="Link to this heading">¶</a></h2>
 <p>This is how you create an Elasticsearch index using the Python client library:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-3">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;documents&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-3">
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-4">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="w"> </span><span class="p">});</span>
 </pre></div>
 </div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
 </div>
 </div>
 <div class="admonition hint">
@@ -282,28 +292,33 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>Here is how to delete an index:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;documents&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-5">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="ow">delete</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="w"> </span><span class="p">});</span>
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-8">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>If you attempt to create an index with a name that is already assigned to an existing index, you will get an error.</p>
 <p>Next you will add a <span class="lang-choices lang-id">createIndex,py:create_index</span> method to the application, along with a few other improvements.</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-9">
 Python</label><div class="sd-tab-content docutils">
-<p>Replace the contents of your <em><a class="reference external" href="http://main.py">main.py</a></em> file to the following code:</p>
+<p>Replace the contents of your <em>main.py</em> file to the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
@@ -343,8 +358,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-10">
 JavaScript</label><div class="sd-tab-content docutils">
 <p>Replace the contents of your <em>main.js</em> file to the following code:</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">fs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
@@ -391,6 +406,11 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-11">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>There are a few improvements in this version of the project.</p>
 <p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
@@ -403,8 +423,8 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>Try calling this new version of the application with the <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> arguments as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-8">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># to check the Elasticsearch connection</span>
 python<span class="w"> </span>main.py<span class="w"> </span>check
@@ -414,8 +434,8 @@ python<span class="w"> </span>main.py<span class="w"> </span>create
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-9">
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-13">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># to check the Elasticsearch connection</span>
 node<span class="w"> </span>main.js<span class="w"> </span>check
@@ -425,14 +445,19 @@ node<span class="w"> </span>main.js<span class="w"> </span>create
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-14">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 </section>
 <section id="adding-documents-to-an-index">
 <h2>Adding documents to an index<a class="headerlink" href="#adding-documents-to-an-index" title="Link to this heading">¶</a></h2>
 <p>Elasticsearch documents are represented as <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON</a> objects with a set of key/value pairs. To add a document to an index, the <code class="docutils literal notranslate"><span class="pre">index</span></code> method of the Elasticsearch client is used. Here is an example:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-10">
+<input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-15">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">document</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
@@ -443,8 +468,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-11">
+<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-16">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
@@ -455,12 +480,17 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-17">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>In this example, the <code class="docutils literal notranslate"><span class="pre">id</span></code> field assigns an unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.</p>
 <p>Let’s add two more methods to the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
+<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-18">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
@@ -472,8 +502,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-13" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-13">
+<input id="sd-tab-item-19" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-19">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">addDocument</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">index</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="w"> </span><span class="p">});</span>
@@ -487,13 +517,18 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-20" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-20">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>The <span class="lang-choices lang-id">addDocument,py:add_document</span> method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.</p>
 <p>The <span class="lang-choices lang-id">getDocument,py:get_document</span> method takes a document identifier as an argument, and returns the document as a response.</p>
 <p>To see the new methods in action, extend the command-line parsing at the bottom of the application with new <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">get</span></code> options:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-14" name="sd-tab-set-7" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-14">
+<input checked="checked" id="sd-tab-item-21" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-21">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">add_document</span><span class="p">({</span>
@@ -510,8 +545,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-15" name="sd-tab-set-7" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-15">
+<input id="sd-tab-item-22" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-22">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;add&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">({</span>
@@ -531,11 +566,16 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-23" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-23">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>The new <code class="docutils literal notranslate"><span class="pre">add</span></code> command inserts a test document into the index, identified as <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">get</span></code> command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-16" name="sd-tab-set-8" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-16">
+<input checked="checked" id="sd-tab-item-24" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-24">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert a test document with id=&quot;1&quot;</span>
 python<span class="w"> </span>main.py<span class="w"> </span>add
@@ -545,8 +585,8 @@ python<span class="w"> </span>main.py<span class="w"> </span>get<span class="w">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-17" name="sd-tab-set-8" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-17">
+<input id="sd-tab-item-25" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-25">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert a test document with id=&quot;1&quot;</span>
 node<span class="w"> </span>main.js<span class="w"> </span>add
@@ -555,6 +595,11 @@ node<span class="w"> </span>main.js<span class="w"> </span>add
 node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
+</div>
+<input id="sd-tab-item-26" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-26">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">get</span></code> command should print the following information:</p>
@@ -571,14 +616,14 @@ node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> <
 <h2>Ingesting documents in bulk<a class="headerlink" href="#ingesting-documents-in-bulk" title="Link to this heading">¶</a></h2>
 <p>When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client’s <code class="docutils literal notranslate"><span class="pre">index</span></code> method for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a <em>bulk</em> feature that allows you to send multiple index operations in a single call.</p>
 <p>Now you are going to implement a bulk ingest option using a dataset in <a class="reference external" href="https://github.com/ndjson/ndjson-spec">NDJSON</a> format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using <code class="docutils literal notranslate"><span class="pre">curl</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>data.ndjson<span class="w"> </span>https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/332f8c8de4191ec6694228b587e40a3eb80c15cb/data.ndjson
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>data.ndjsonhttps://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
 </pre></div>
 </div>
 <p>The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.</p>
 <p>The <span class="lang-choices lang-id">addManyDocuments,py:add_many_documents</span> method shown below implements the bulk ingest solution.</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-9" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-18">
+<input checked="checked" id="sd-tab-item-27" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-27">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_many_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">def</span><span class="w"> </span><span class="nf">get_next_document</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
@@ -602,8 +647,8 @@ Python</label><div class="sd-tab-content docutils">
 <p>The implementation of the <code class="docutils literal notranslate"><span class="pre">get_next_document</span></code> generator function opens the NDJSON data file and reads it one line at a time in a loop. For each line, it parses it as a JSON object and then it yields a dictionary with the target index name (in the <code class="docutils literal notranslate"><span class="pre">_index</span></code> key), the desired identifier for the document (in the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key) and the document data (in the <code class="docutils literal notranslate"><span class="pre">_source</span></code> key).</p>
 <p>To assign unique identifiers to documents, the generator function maintains a counter which gets incremented for each document. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key to have Elasticsearch generate random identifiers.</p>
 </div>
-<input id="sd-tab-item-19" name="sd-tab-set-9" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-19">
+<input id="sd-tab-item-28" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-28">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">addManyDocuments</span><span class="p">(</span><span class="nx">dataFile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">getNextDocument</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -637,11 +682,16 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>As the bulk helper receives each document from the generator function, it calls the <code class="docutils literal notranslate"><span class="pre">onDocument</span></code> function with it as an argument. This function returns the operation that needs to be performed with this document. By returning an object with an <code class="docutils literal notranslate"><span class="pre">index</span></code> key it indicates that the document is to be stored in the index. The <code class="docutils literal notranslate"><span class="pre">_index</span></code> and <code class="docutils literal notranslate"><span class="pre">_id</span></code> provide the name of the index and the unique identifier respectively.</p>
 <p>The identifiers are generated from a numeric incrementing counter in this case. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the <code class="docutils literal notranslate"><span class="pre">_id</span></code> key to have Elasticsearch generate random identifiers.</p>
 </div>
+<input id="sd-tab-item-29" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-29">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>Let’s add a new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command to the application that uses the new method:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-20" name="sd-tab-set-10" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-20">
+<input checked="checked" id="sd-tab-item-30" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-30">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bulk&#39;</span><span class="p">:</span>
         <span class="n">count</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">add_many_documents</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -652,8 +702,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-21" name="sd-tab-set-10" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-21">
+<input id="sd-tab-item-31" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-31">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;bulk&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addManyDocuments</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
@@ -666,22 +716,32 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-32" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-32">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>This new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the <em>data.ndjson</em> file as instructed above, and then run the ingest as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-22" name="sd-tab-set-11" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-22">
+<input checked="checked" id="sd-tab-item-33" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-33">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py<span class="w"> </span>bulk<span class="w"> </span>data.ndjson
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-23" name="sd-tab-set-11" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-23">
+<input id="sd-tab-item-34" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-34">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>node<span class="w"> </span>main.js<span class="w"> </span>bulk<span class="w"> </span>data.ndjson
 </pre></div>
 </div>
+</div>
+<input id="sd-tab-item-35" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-35">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
 </div>
 </div>
 <p>The output of this command should indicate that 15 documents were ingested.</p>

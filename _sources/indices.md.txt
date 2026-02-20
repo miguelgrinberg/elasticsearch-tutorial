@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 Two very important concepts in Elasticsearch are *documents* and *indices*.
@@ -43,6 +48,11 @@ await client.indices.create({ index: 'documents' });
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 :::{hint}
@@ -67,6 +77,11 @@ client.indices.delete(index='documents')
 ```js
 await this.client.indices.delete({ index: 'documents' });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -174,6 +189,11 @@ main();
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 There are a few improvements in this version of the project.
@@ -218,6 +238,11 @@ node main.js create
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 
@@ -252,6 +277,11 @@ document = {
 }
 await this.client.index({ index: this.index, document: document, id: '1' });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -291,6 +321,11 @@ Let's add two more methods to the `DB` class, to add and retrieve documents. Be 
   
   // more methods will be added here later
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -345,6 +380,11 @@ To see the new methods in action, extend the command-line parsing at the bottom 
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 The new `add` command inserts a test document into the index, identified as `"1"`. The `get` command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:
@@ -376,6 +416,11 @@ node main.js get 1
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 The `get` command should print the following information:
@@ -397,7 +442,7 @@ When setting up a new Elasticsearch index for a real project, you are likely goi
 Now you are going to implement a bulk ingest option using a dataset in [NDJSON](https://github.com/ndjson/ndjson-spec) format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using `curl`:
 
 ```bash
-curl -L -o data.ndjson https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/332f8c8de4191ec6694228b587e40a3eb80c15cb/data.ndjson
+curl -L -o data.ndjsonhttps://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
 ```
 
 The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.
@@ -476,6 +521,11 @@ As the bulk helper receives each document from the generator function, it calls 
 The identifiers are generated from a numeric incrementing counter in this case. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the `_id` key to have Elasticsearch generate random identifiers.
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 Let's add a new `bulk` command to the application that uses the new method:
@@ -510,6 +560,11 @@ Let's add a new `bulk` command to the application that uses the new method:
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 This new `bulk` command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the *data.ndjson* file as instructed above, and then run the ingest as follows:
@@ -530,6 +585,11 @@ python main.py bulk data.ndjson
 ```bash
 node main.js bulk data.ndjson
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::

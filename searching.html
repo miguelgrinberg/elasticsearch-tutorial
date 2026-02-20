@@ -253,6 +253,11 @@ Python</label><div class="sd-tab-content docutils">
 JavaScript</label><div class="sd-tab-content docutils">
 <p> </p>
 </div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-2">
+Go</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
 </div>
 <p>In this section you are going to learn how to run full-text searches on the index you have built.</p>
 <p>Elasticsearch provides several options to conduct searchs. For this tutorial you are going to use the <a class="reference external" href="https://www.elastic.co/docs/explore-analyze/query-filter/languages/querydsl">Query DSL</a>, a JSON-style query language.</p>
@@ -261,8 +266,8 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>The most basic way to search an index is to look for a specific word or sequence of words in a text field of the index. In the Query DSL this is called a <a class="reference external" href="https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-match-query">Match</a> query.</p>
 <p>Here is an example of a match query:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-3">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
     <span class="n">index</span><span class="o">=</span><span class="s1">&#39;documents&#39;</span><span class="p">,</span>
@@ -275,8 +280,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-3">
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-4">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="k">await</span><span class="w"> </span><span class="nx">self</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="p">,</span>
@@ -289,11 +294,16 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>In this example, the <code class="docutils literal notranslate"><span class="pre">content</span></code> field of the ‘documents’ index is searched for the words <code class="docutils literal notranslate"><span class="pre">work</span> <span class="pre">from</span> <span class="pre">home</span></code>. The return value from the <code class="docutils literal notranslate"><span class="pre">search</span></code> method includes the documents that were found, each with a relevance score.</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_query</span><span class="p">):</span>
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
@@ -309,8 +319,8 @@ Python</label><div class="sd-tab-content docutils">
 </div>
 <p>The expresion <code class="docutils literal notranslate"><span class="pre">results['hits']['hits']</span></code> returns the list of documents that were found.</p>
 </div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-5">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="nx">searchQuery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span>
@@ -327,6 +337,11 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>The expresion <code class="docutils literal notranslate"><span class="pre">results.hits.hits</span></code> returns the list of documents that were found.</p>
 </div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-8">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -334,8 +349,8 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>To use the search feature, add a <code class="docutils literal notranslate"><span class="pre">search</span></code> command-line argument that runs a search and prints the results:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-9">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;search&#39;</span><span class="p">:</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -346,8 +361,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-10">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;search&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
@@ -361,23 +376,33 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-11">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>You can see that each result includes a <code class="docutils literal notranslate"><span class="pre">_score</span></code> attribute. This is the relevance score, with higher values meaning higher relevance. The <code class="docutils literal notranslate"><span class="pre">_source</span></code> field includes the document data, and <code class="docutils literal notranslate"><span class="pre">_id</span></code> includes the unique identifier of the document, both seen already.</p>
 <p>You are now ready to search the index:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-8">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;work from home&quot;</span>
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-9">
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-13">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>node<span class="w"> </span>main.js<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;work from home&quot;</span>
 </pre></div>
 </div>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-14">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
 </div>
 </div>
 <p>The result is the list of documents that were found with the given words. The <code class="docutils literal notranslate"><span class="pre">search</span></code> command in this application prints the relevance score, the title and the identifier of each returned document.</p>
@@ -401,8 +426,8 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>To run a search on multiple fields, the <a class="reference external" href="https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-multi-match-query">Multi-match</a> query can be used.</p>
 <p>Instead of adding yet another method, this time update the existing <code class="docutils literal notranslate"><span class="pre">search</span></code> method to use multi-match instead of the simple match:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-10">
+<input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-15">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_query</span><span class="p">):</span>
         <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
@@ -418,8 +443,8 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-11">
+<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-16">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">search</span><span class="p">(</span><span class="nx">searchQuery</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">({</span>
@@ -436,6 +461,11 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-17">
+Go</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
 </div>
 <p>The multi-match query uses a slightly different format that makes it possible to provide a list of fields to search. If you repeat a search with the updated search you will likely notice that the ranking of results is different, because now the three text fields in the index are used instead of just one.</p>
 <p>Below you can see the results for the “work for home” search used above. Note how there are some documents that were rated higher than before due to having the words in the query in the additional fields added to the search:</p>
@@ -450,18 +480,6 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="p">[</span><span class="mf">1.107</span><span class="p">]</span> <span class="n">New</span> <span class="n">Employee</span> <span class="n">Onboarding</span> <span class="n">Guide</span> <span class="p">(</span><span class="nb">id</span><span class="p">:</span><span class="mi">15</span><span class="p">)</span>
 <span class="p">[</span><span class="mf">0.994</span><span class="p">]</span> <span class="n">Sales</span> <span class="n">Engineering</span> <span class="n">Collaboration</span> <span class="p">(</span><span class="nb">id</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>
 </pre></div>
-</div>
-<div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
-Python</label><div class="sd-tab-content docutils">
-<p> </p>
-</div>
-<input id="sd-tab-item-13" name="sd-tab-set-6" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-13">
-JavaScript</label><div class="sd-tab-content docutils">
-<p> </p>
-</div>
 </div>
 </section>
 </section>
