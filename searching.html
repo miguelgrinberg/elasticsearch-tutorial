@@ -297,10 +297,19 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Client</span><span class="p">.</span><span class="nx">Search</span><span class="p">().</span><span class="nx">Index</span><span class="p">(</span><span class="s">&quot;documents&quot;</span><span class="p">).</span><span class="nx">Request</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">search</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Query</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">types</span><span class="p">.</span><span class="nx">Query</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Match</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">types</span><span class="p">.</span><span class="nx">MatchQuery</span><span class="p">{</span>
+<span class="w">            </span><span class="s">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nx">Query</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;work from home&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+</pre></div>
 </div>
 </div>
-<p>In this example, the <code class="docutils literal notranslate"><span class="pre">content</span></code> field of the ‘documents’ index is searched for the words <code class="docutils literal notranslate"><span class="pre">work</span> <span class="pre">from</span> <span class="pre">home</span></code>. The return value from the <code class="docutils literal notranslate"><span class="pre">search</span></code> method includes the documents that were found, each with a relevance score.</p>
+</div>
+<p>In this example, the <code class="docutils literal notranslate"><span class="pre">content</span></code> field of the <code class="docutils literal notranslate"><span class="pre">documents</span></code> index is searched for the words <code class="docutils literal notranslate"><span class="pre">work</span> <span class="pre">from</span> <span class="pre">home</span></code>. The return value from the search includes the documents that were found, each with a relevance score.</p>
+<p>This example can be made into a new <span class="lang-choices lang-text">method,go:function</span> in the application:</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
@@ -340,7 +349,30 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-8">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Search</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">searchQuery</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="nx">types</span><span class="p">.</span><span class="nx">Hit</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Search</span><span class="p">().</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Request</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">search</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+<span class="w">		</span><span class="nx">Query</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">types</span><span class="p">.</span><span class="nx">Query</span><span class="p">{</span>
+<span class="w">			</span><span class="nx">Match</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">types</span><span class="p">.</span><span class="nx">MatchQuery</span><span class="p">{</span>
+<span class="w">				</span><span class="s">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nx">Query</span><span class="p">:</span><span class="w"> </span><span class="nx">searchQuery</span><span class="p">},</span>
+<span class="w">			</span><span class="p">},</span>
+<span class="w">		</span><span class="p">},</span>
+<span class="w">	</span><span class="p">}).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">Hits</span><span class="p">.</span><span class="nx">Hits</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The expression <code class="docutils literal notranslate"><span class="pre">response.Hits.Hits</span></code> returns the list of documents that were found.</p>
+<p>Once again there are additional imports that need to be added at the top of the file:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/search&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/types&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="admonition hint">
@@ -379,10 +411,20 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-11">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;search&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">results</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Search</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">var</span><span class="w"> </span><span class="nx">doc</span><span class="w"> </span><span class="nx">Document</span>
+<span class="w">                </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">Source_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">                </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;[%.3f] %s (id:%s)\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">result</span><span class="p">.</span><span class="nx">Score_</span><span class="p">,</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">result</span><span class="p">.</span><span class="nx">Id_</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+</pre></div>
 </div>
 </div>
-<p>You can see that each result includes a <code class="docutils literal notranslate"><span class="pre">_score</span></code> attribute. This is the relevance score, with higher values meaning higher relevance. The <code class="docutils literal notranslate"><span class="pre">_source</span></code> field includes the document data, and <code class="docutils literal notranslate"><span class="pre">_id</span></code> includes the unique identifier of the document, both seen already.</p>
+</div>
+<p>Each result includes a <span class="lang-choices lang-id">_score,go:Score_</span> attribute. This is the relevance score, with higher values meaning higher relevance. The <span class="lang-choices lang-id">_source,go:Source_</span> field includes the document data, and <span class="lang-choices lang-id">_id,go:Id_</span> is set to the unique identifier of the document.<span class="lang-choices lang-text">,go: Documents are unmarshaled into structs to work more conveniently with them.</span></p>
 <p>You are now ready to search the index:</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
@@ -402,10 +444,12 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-14">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;work from home&quot;</span>
+</pre></div>
 </div>
 </div>
-<p>The result is the list of documents that were found with the given words. The <code class="docutils literal notranslate"><span class="pre">search</span></code> command in this application prints the relevance score, the title and the identifier of each returned document.</p>
+</div>
+<p>The result is the list of documents that were found with the given words. The <code class="docutils literal notranslate"><span class="pre">search</span></code> command in this application prints the relevance score, the title, and the identifier of each returned document:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mf">6.235</span><span class="p">]</span> <span class="n">Work</span> <span class="n">From</span> <span class="n">Home</span> <span class="n">Policy</span> <span class="p">(</span><span class="nb">id</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">[</span><span class="mf">1.436</span><span class="p">]</span> <span class="n">Wfh</span> <span class="n">Policy</span> <span class="n">Update</span> <span class="n">May</span> <span class="mi">2023</span> <span class="p">(</span><span class="nb">id</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
 <span class="p">[</span><span class="mf">1.302</span><span class="p">]</span> <span class="n">Company</span> <span class="n">Vacation</span> <span class="n">Policy</span> <span class="p">(</span><span class="nb">id</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>
@@ -464,7 +508,22 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-17">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Search</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">searchQuery</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="nx">types</span><span class="p">.</span><span class="nx">Hit</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Search</span><span class="p">().</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Request</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">search</span><span class="p">.</span><span class="nx">Request</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Query</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">types</span><span class="p">.</span><span class="nx">Query</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">MultiMatch</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">types</span><span class="p">.</span><span class="nx">MultiMatchQuery</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">Query</span><span class="p">:</span><span class="w">  </span><span class="nx">searchQuery</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Fields</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;summary&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">Hits</span><span class="p">.</span><span class="nx">Hits</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>The multi-match query uses a slightly different format that makes it possible to provide a list of fields to search. If you repeat a search with the updated search you will likely notice that the ranking of results is different, because now the three text fields in the index are used instead of just one.</p>

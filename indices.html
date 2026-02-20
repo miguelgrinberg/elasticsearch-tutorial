@@ -347,7 +347,7 @@ Python</label><div class="sd-tab-content docutils">
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ignore_unavailable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
-    <span class="c1"># more methods will be added here later</span>
+    <span class="c1"># add more methods before this line</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -356,11 +356,12 @@ Python</label><div class="sd-tab-content docutils">
         <span class="nb">print</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">check</span><span class="p">())</span>
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;create&#39;</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">create_index</span><span class="p">()</span>
-    <span class="c1"># more commands will be added here later</span>
+    <span class="c1"># add more commands before this line</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: unknown command&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
 </div>
 <input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-10">
@@ -389,7 +390,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">indices</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="w"> </span><span class="p">});</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+<span class="w">  </span><span class="c1">// add more methods before this line</span>
 <span class="p">}</span>
 
 <span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -400,7 +401,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;create&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;documents&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="c1">// add more commands before this line</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: unknown command&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
@@ -409,6 +410,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="nx">main</span><span class="p">();</span>
 </pre></div>
 </div>
+<p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
 </div>
 <input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-11">
@@ -469,7 +471,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
 <span class="p">}</span>
 
-<span class="c1">// more functions will be added here</span>
+<span class="c1">// add more functions before this line</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">godotenv</span><span class="p">.</span><span class="nx">Load</span><span class="p">()</span>
@@ -490,7 +492,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CreateIndex</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
-<span class="w">    </span><span class="c1">// more commands will be added here</span>
+<span class="w">    </span><span class="c1">// add more commands before this line</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Error: unknown command&quot;</span><span class="p">))</span>
 <span class="w">    </span><span class="p">}</span>
@@ -502,14 +504,12 @@ Go</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
-<p>There are a few improvements in this version of the project.</p>
-<p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
 <p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> <span class="lang-choices lang-text">class,go:struct</span> now takes <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument, the name of the index to use. This name is stored, so that it can be used in all operations later.</p>
 <p>The new <span class="lang-choices lang-id">createIndex,py:create_index,go:CreateIndex</span> <span class="lang-choices lang-text">method,go:function</span> first deletes the index with the name that was passed in the constructor. The <span class="lang-choices lang-id">ignore_unavailable,go:IgnoreUnavailable</span> option, given to the delete call, prevents a failure when the index name isn’t found. After deleting the index, a new index is created with that name.</p>
 <p><span class="lang-choices lang-text">In the main function,py:Then at the bottom</span>, an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is created with the index name <code class="docutils literal notranslate"><span class="pre">documents</span></code>, and then a simple command-line parser looks for a <code class="docutils literal notranslate"><span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">create</span></code> argument. For <code class="docutils literal notranslate"><span class="pre">check</span></code>, it prints the results of calling the <code class="docutils literal notranslate"><span class="pre">check</span></code> method as the previous version of the application did, and for <code class="docutils literal notranslate"><span class="pre">create</span></code>, it calls the new <span class="lang-choices lang-id">createIndex,py:create_index,go:CreateIndex</span> <span class="lang-choices lang-text">method,go:function</span>.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Note that there are comments in the code indicating the places where more functionality will be added later.</p>
+<p>Note the location of the <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">more</span> <span class="pre">___</span> <span class="pre">before</span> <span class="pre">this</span> <span class="pre">line</span></code> comments in the code. These indicate the places where you will need to add more functionality later.</p>
 </div>
 <p>Try calling this new version of the application with the <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> arguments as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
@@ -603,7 +603,7 @@ Python</label><div class="sd-tab-content docutils">
     <span class="k">def</span><span class="w"> </span><span class="nf">get_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
 
-    <span class="c1"># more methods will be added here later</span>
+    <span class="c1"># add more methods before this line</span>
 </pre></div>
 </div>
 </div>
@@ -618,7 +618,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="p">});</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span>
-<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+<span class="w">  </span><span class="c1">// add more methods before this line</span>
 </pre></div>
 </div>
 </div>
@@ -636,7 +636,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="c1">// more functions will be added here later</span>
+<span class="c1">// add more functions before this line</span>
 </pre></div>
 </div>
 <p>There are two new imports required by this added code that you need to insert at the top:</p>
@@ -665,7 +665,7 @@ Python</label><div class="sd-tab-content docutils">
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;get&#39;</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">])</span>
-    <span class="c1"># more commands will be added here later</span>
+    <span class="c1"># add more commands before this line</span>
 </pre></div>
 </div>
 </div>
@@ -683,7 +683,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">getDocument</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">_source</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="c1">// add more commands before this line</span>
 </pre></div>
 </div>
 </div>
@@ -701,7 +701,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Source_</span><span class="p">))</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">// more commands will be added here later</span>
+<span class="w">    </span><span class="c1">// add more commands before this line</span>
 </pre></div>
 </div>
 </div>
@@ -778,7 +778,7 @@ Python</label><div class="sd-tab-content docutils">
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Bulk ingest failure&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="c1"># more methods will be added here later</span>
+    <span class="c1"># add more methods before this line</span>
 </pre></div>
 </div>
 <p>Let’s start to analyze this method from the <code class="docutils literal notranslate"><span class="pre">bulk</span></code> call. This function takes the client and a list of actions to perform as arguments. The <code class="docutils literal notranslate"><span class="pre">stats_only</span></code> given last requests that the return value from this function is just a summary of operations. This result will come as a tuple of two numbers indicating how many documents were processed and how many failed. For this application if there is at least one error a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> is raised. On success, the method returns the number of documents that were inserted into the index.</p>
@@ -813,7 +813,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="c1">// more methods will be added here later</span>
+<span class="w">  </span><span class="c1">// add more methods before this line</span>
 </pre></div>
 </div>
 <p>Let’s start to analyze this method from the <code class="docutils literal notranslate"><span class="pre">helpers.bulk</span></code> method of the client. This method takes the a list of actions to perform in the <code class="docutils literal notranslate"><span class="pre">datasource</span></code> argument, and a document processing function in <code class="docutils literal notranslate"><span class="pre">onDocument</span></code>. The return value of this method is an object with several details about the bulk operation, in particular how many documents were processed successfully and how many failed. For this application an excecption is raised if there is at least one error. On success, the method returns the number of documents that were inserted into the index.</p>
@@ -855,7 +855,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
 <span class="p">}</span>
 
-<span class="c1">// more functions will be added here later</span>
+<span class="c1">// add more functions before this line</span>
 </pre></div>
 </div>
 <p>This code requires a few new imports, which you need to add at the top of the file:</p>
@@ -880,7 +880,7 @@ Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bulk&#39;</span><span class="p">:</span>
         <span class="n">count</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">add_many_documents</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ingested </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> documents.&#39;</span><span class="p">)</span>
-    <span class="c1"># more commands will be added here later</span>
+    <span class="c1"># add more commands before this line</span>
 </pre></div>
 </div>
 </div>
@@ -891,7 +891,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addManyDocuments</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Ingested </span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb"> documents.`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="c1">// more commands will be added here later</span>
+<span class="w">  </span><span class="c1">// add more commands before this line</span>
 </pre></div>
 </div>
 </div>
@@ -903,7 +903,7 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Ingested %d documents.\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">// more commands will be added here</span>
+<span class="w">    </span><span class="c1">// add more commands before this line</span>
 </pre></div>
 </div>
 </div>
