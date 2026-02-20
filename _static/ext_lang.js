@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   langSelect.innerHTML = `
     <option value="py">Python</option>
     <option value="js">JavaScript</option>
+    <option value="go">Go</option>
   `;
   const iconContainer = document.querySelector('.content-icon-container');
   iconContainer.insertBefore(langSelect, iconContainer.firstChild);

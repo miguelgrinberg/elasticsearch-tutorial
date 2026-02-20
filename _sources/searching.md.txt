@@ -121,7 +121,7 @@ To use the search feature, add a `search` command-line argument that runs a sear
     elif sys.argv[1] == 'search':
         results = db.search(sys.argv[2])
         for result in results:
-            print(f'[{result["_score"]:.03f}] {result["_source"]["name"]} (id:{result["_id"]})')
+            print(f'[{result["_score"]:.03f}] {result["_source"]["title"]} (id:{result["_id"]})')
     else:
         print('Error: valid commands are check, create, add, get, bulk and search')
 ```
@@ -133,7 +133,7 @@ To use the search feature, add a `search` command-line argument that runs a sear
   else if (process.argv[2] == 'search') {
     const results = await db.search(process.argv[3]);
     for (const result of results) {
-      console.log(`[${result._score.toFixed(3)}] ${result._source.name} (id:${result._id})`);
+      console.log(`[${result._score.toFixed(3)}] ${result._source.title} (id:${result._id})`);
     }
   }
   else {
@@ -206,7 +206,7 @@ Instead of adding yet another method, this time update the existing `search` met
             query={
                 'multi_match': {
                     'query': search_query,
-                    'fields': ['name', 'summary', 'content']
+                    'fields': ['title', 'summary', 'content']
                 }
             }
         )
@@ -223,7 +223,7 @@ Instead of adding yet another method, this time update the existing `search` met
       query: {
         multi_match: {
           query: searchQuery,
-          fields: ['name', 'summary', 'content'],
+          fields: ['title', 'summary', 'content'],
         }
       }
     });

@@ -253,12 +253,17 @@ Python</label><div class="sd-tab-content docutils">
 JavaScript</label><div class="sd-tab-content docutils">
 <p> </p>
 </div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-2">
+Go</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
 </div>
 <p>In this section you are going to write code to connect to your Elasticsearch instance.</p>
 <p>To create a connection, an Elasticsearch client must be created with the appropriate connection options. You will now do this to verify that you can connect to the Elasticsearch instance created by <code class="docutils literal notranslate"><span class="pre">start-local</span></code>.</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-3">
 Python</label><div class="sd-tab-content docutils">
 <p>Copy the following code into a file named <em><a class="reference external" href="http://main.py">main.py</a></em> in your project directory:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -283,9 +288,12 @@ Python</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 <p>The first thing that happens in this file after the imports is the call to the <code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> function from the <a class="reference external" href="https://github.com/theskumar/python-dotenv">python-dotenv</a> package. This function reads the variables that are stored in the <em>.env</em> file and imports them into the Python process as environment variables. Once they are imported, they can be accessed from the <code class="docutils literal notranslate"><span class="pre">os.environ</span></code> dictionary.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is where all the database logic for the project will be defined. In the constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> method calls the <code class="docutils literal notranslate"><span class="pre">info</span></code> method of the client and returns its response. Calling the <code class="docutils literal notranslate"><span class="pre">info</span></code> method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.</p>
+<p>The last three lines of the application define the code that will run when the script is started. In this first version, the application creates an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, and prints the result of calling its <code class="docutils literal notranslate"><span class="pre">check</span></code> method.</p>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-3">
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-4">
 JavaScript</label><div class="sd-tab-content docutils">
 <p>Copy the following code into a file named <em>main.js</em> in your project directory:</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dotenv&#39;</span><span class="p">).</span><span class="nx">config</span><span class="p">({</span><span class="w"> </span><span class="nx">quiet</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
@@ -313,36 +321,93 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 <p>The first line in this file invokes the <code class="docutils literal notranslate"><span class="pre">config</span></code> function of the <code class="docutils literal notranslate"><span class="pre">dotenv</span></code> package. This reads the variables that are stored in the <em>.env</em> file and imports them into the process as environment variables. Once they are imported, they can be accessed from the <code class="docutils literal notranslate"><span class="pre">process.env</span></code> object.</p>
-</div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is where all the database logic for the project will be defined. In the class constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as arguments, to allow the client to authenticate.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class calls the <code class="docutils literal notranslate"><span class="pre">info</span></code> method of the client and returns its response. Calling the <code class="docutils literal notranslate"><span class="pre">info</span></code> method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.</p>
-<div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
-Python</label><div class="sd-tab-content docutils">
-<p>The last three lines of the application define the code that will run when the script is started. In this first version, the application creates an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, and prints the result of calling its <code class="docutils literal notranslate"><span class="pre">check</span></code> method.</p>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-5">
-JavaScript</label><div class="sd-tab-content docutils">
+<p>The <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is where all the database logic for the project will be defined. In the constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> method calls the <code class="docutils literal notranslate"><span class="pre">info</span></code> method of the client and returns its response. Calling the <code class="docutils literal notranslate"><span class="pre">info</span></code> method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>The methods of the Elasticsearch client for JavaScript return promises. They can be invoked with async/await or promise syntax.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> function defines the code that will run when the script is started. In this first, version, the application creates an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, and prints the result of calling its <code class="docutils literal notranslate"><span class="pre">check</span></code> method.</p>
 </div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
+Go</label><div class="sd-tab-content docutils">
+<p>Copy the following code into a file named <em>main.go</em> in your project directory:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;context&quot;</span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="w">	</span><span class="s">&quot;log&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+
+<span class="w">	</span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9&quot;</span>
+<span class="w">	</span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/info&quot;</span>
+<span class="w">	</span><span class="s">&quot;github.com/joho/godotenv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">DB</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Client</span><span class="w"> </span><span class="o">*</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">TypedClient</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">DB</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">NewTypedClient</span><span class="p">(</span>
+<span class="w">		</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+<span class="w">			</span><span class="nx">Addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTICSEARCH_URL&quot;</span><span class="p">)},</span>
+<span class="w">			</span><span class="nx">APIKey</span><span class="p">:</span><span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTIC_API_KEY&quot;</span><span class="p">),</span>
+<span class="w">		</span><span class="p">},</span>
+<span class="w">	</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">client</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Check</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">info</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Info</span><span class="p">().</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">godotenv</span><span class="p">.</span><span class="nx">Load</span><span class="p">()</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Error loading .env file&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">()</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+
+<span class="w">	</span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Check</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">DB</span></code> struct is where all the database logic for the project will be defined. In the <code class="docutils literal notranslate"><span class="pre">NewDB</span></code> function, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate. Notice that the first line in the <code class="docutils literal notranslate"><span class="pre">main</span></code> function calls <code class="docutils literal notranslate"><span class="pre">Load</span></code> from the <code class="docutils literal notranslate"><span class="pre">godotenv</span></code> package. This will read the variables that you stored in the <em>.env</em> file into the environment.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Close</span></code> function performs cleanup, by closing the Elasticearch client.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Check</span></code> function calls the <code class="docutils literal notranslate"><span class="pre">Info</span></code> method of the client and returns its response. Calling the <code class="docutils literal notranslate"><span class="pre">info</span></code> method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">main</span></code> function, after importing the environment variables, an instance of <code class="docutils literal notranslate"><span class="pre">NewDB</span></code> is created, with a deferred call to <code class="docutils literal notranslate"><span class="pre">Close</span></code>. Then it calls the <code class="docutils literal notranslate"><span class="pre">Check</span></code> function and prints the result to the terminal. To print the response in a format that is easy to understand, it is marshaled as a JSON object.</p>
+</div>
 </div>
 <p>Run the application as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main.py
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-7">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>node<span class="w"> </span>main.js
@@ -432,6 +497,6 @@ JavaScript</label><div class="sd-tab-content docutils">
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script src="_static/ext_lang.js?v=027926fc"></script>
+    <script src="_static/ext_lang.js?v=e5ae8137"></script>
     </body>
 </html>

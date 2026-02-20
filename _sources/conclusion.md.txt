@@ -1,5 +1,5 @@
 # Conclusion
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -25,8 +25,9 @@ We hope you have enjoyed this tutorial and are encouraged to learn more about El
 
 For your reference, below you can see the complete source code for the tutorial project that you built.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -81,7 +82,7 @@ class DB:
             query={
                 'multi_match': {
                     'query': search_query,
-                    'fields': ['name', 'summary', 'content']
+                    'fields': ['title', 'summary', 'content']
                 }
             }
         )
@@ -96,20 +97,20 @@ if __name__ == '__main__':
         db.create_index()
     elif sys.argv[1] == 'add':
         db.add_document({
-            'name': 'Work From Home Policy',
+            'title': 'Work From Home Policy',
             'category': 'teams',
             'content': 'The purpose of this full-time work-from-home policy is...',
-            'created_on': '2023-11-02',
         }, id='1')
     elif sys.argv[1] == 'get':
-        print(db.get_document(sys.argv[2]))
+        response = db.get_document(sys.argv[2])
+        print(response['_source'])
     elif sys.argv[1] == 'bulk':
         count = db.add_many_documents(sys.argv[2])
         print(f'Ingested {count} documents.')
     elif sys.argv[1] == 'search':
         results = db.search(sys.argv[2])
         for result in results:
-            print(f'[{result["_score"]:.03f}] {result["_source"]["name"]} (id:{result["_id"]})')
+            print(f'[{result["_score"]:.03f}] {result["_source"]["title"]} (id:{result["_id"]})')
     else:
         print('Error: valid commands are check, create, add, get, bulk and search')
 ```
@@ -179,7 +180,7 @@ class DB {
       query: {
         multi_match: {
           query: searchQuery,
-          fields: ['name', 'summary', 'content'],
+          fields: ['title', 'summary', 'content'],
         }
       }
     });
@@ -197,14 +198,14 @@ async function main() {
   }
   else if (process.argv[2] == 'add') {
     await db.addDocument({
-      name: 'Work From Home Policy',
+      title: 'Work From Home Policy',
       category: 'teams',
       content: 'The purpose of this full-time work-from-home policy is...',
-      created_on: '2023-11-02',
     }, '1');
   }
   else if (process.argv[2] == 'get') {
-    console.log(await db.getDocument(process.argv[3]));
+    const response = await db.getDocument(process.argv[3]);
+    console.log(response._source);
   }
   else if (process.argv[2] == 'bulk') {
     const count = await db.addManyDocuments(process.argv[3]);
@@ -213,7 +214,7 @@ async function main() {
   else if (process.argv[2] == 'search') {
     const results = await db.search(process.argv[3]);
     for (const result of results) {
-      console.log(`[${result._score.toFixed(3)}] ${result._source.name} (id:${result._id})`);
+      console.log(`[${result._score.toFixed(3)}] ${result._source.title} (id:${result._id})`);
     }
   }
   else {

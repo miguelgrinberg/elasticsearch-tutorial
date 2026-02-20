@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 In this section you will create a new project and add all the dependencies to it, including the official Elasticsearch client for your chosen programming language.
@@ -78,13 +83,13 @@ The command adds two dependencies to the project:
 ::::{tab-item} JavaScript
 :sync: js
 
-The next step is to create a JavaScript project in this directory. Make sure your current directory is the *elasticsearch-tutorial* directory you created above, and then enter the following commands to initialize the project:
+The next step is to create a JavaScript project in this directory. Make sure your current directory is the *elasticsearch-tutorial* directory you created above, and then enter the following command to initialize the project:
 
 ```bash
 npm init -y
 ```
 
-To complete the project creation, you will install the package dependencies that you will need to use in this tutorial. Run the following command to install these packages:
+To complete the project set up, you will install the package dependencies that you will need to use in this tutorial. Run the following command to install these packages:
 
 ```bash
 npm install @elastic/elasticsearch dotenv
@@ -94,6 +99,29 @@ The command adds two dependencies to the project:
 
 - `@elastic/elasticsearch`: the official Elasticsearch JavaScript client
 - `dotenv`: a package that reads configuration variables from a file. You will use it to import your Elasticsearch credentials from a configuration file.
+
+::::
+
+::::{tab-item} Go
+:sync: go
+
+The next step is to create a Go project in this directory. Make sure your current directory is the *elasticsearch-tutorial* directory you created above, and then enter the following command to initialize the project:
+
+```bash
+go mod init elasticsearch-tutorial
+```
+
+To complete the project set up, you will install the package dependencies that you will need to use in this tutorial. Run the following commands to install these packages:
+
+```bash
+go get github.com/elastic/go-elasticsearch/v9
+go get github.com/joho/godotenv
+```
+
+The two dependencies added to the project are:
+
+- `go-elasticsearch`: the official Elasticsearch Go client
+- `godotenv`: a package that reads configuration variables from a file. You will use it to import your Elasticsearch credentials from a configuration file.
 
 ::::
 

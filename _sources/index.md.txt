@@ -13,12 +13,17 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 This hands-on tutorial will teach you how to build a small search project using [Elasticsearch](https://www.elastic.co/).
 
 :::{tip}
-You are viewing the **{lang-text}`py:Python,js:JavaScript`** version of this tutorial. If you want to follow this tutorial on a different programming language, select it in the top-right dropdown.
+You are viewing the **{lang-text}`py:Python,js:JavaScript,go:Go`** version of this tutorial. If you want to follow this tutorial on a different programming language, select it in the top-right dropdown.
 :::
 
 :::{toctree}
@@ -32,20 +37,3 @@ indices
 searching
 conclusion
 :::
-
-:::::{tab-set}
-:sync-group: lang
-:class: invisible-tab-set
-
-::::{tab-item} Python
-:sync: py
-Hi Python
-::::
-
-::::{tab-item} JavaScript
-:sync: js
-Hi JS
-::::
-
-:::::
-

@@ -435,10 +435,9 @@ node<span class="w"> </span>main.js<span class="w"> </span>create
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-10">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">document</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
     <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;teams&#39;</span><span class="p">,</span>
     <span class="s1">&#39;contents&#39;</span><span class="p">:</span> <span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;created_on&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;my_documents&#39;</span><span class="p">,</span> <span class="n">document</span><span class="o">=</span><span class="n">document</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
 </pre></div>
@@ -448,10 +447,9 @@ Python</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-11">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nb">document</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">contents</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">index</span><span class="p">({</span><span class="w"> </span><span class="nx">index</span><span class="o">:</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w"> </span><span class="p">});</span>
 </pre></div>
@@ -499,13 +497,13 @@ JavaScript</label><div class="sd-tab-content docutils">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">:</span>
         <span class="n">db</span><span class="o">.</span><span class="n">add_document</span><span class="p">({</span>
-            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
             <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="s1">&#39;teams&#39;</span><span class="p">,</span>
             <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;created_on&#39;</span><span class="p">:</span> <span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
         <span class="p">},</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;get&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">])</span>
     <span class="c1"># more commands will be added here later</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add and get&#39;</span><span class="p">)</span>
@@ -517,14 +515,14 @@ Python</label><div class="sd-tab-content docutils">
 JavaScript</label><div class="sd-tab-content docutils">
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;add&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">addDocument</span><span class="p">({</span>
-<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">getDocument</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]));</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">getDocument</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">[</span><span class="mf">3</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">_source</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">// more commands will be added here later</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
@@ -561,18 +559,9 @@ node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> <
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">get</span></code> command should print the following information:</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nx">_index</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;documents&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_version</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_seq_no</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_primary_term</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">found</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_source</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">created_on</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2023-11-02&#39;</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Work From Home Policy&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;teams&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;The purpose of this full-time work-from-home policy is...&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -780,6 +769,6 @@ JavaScript</label><div class="sd-tab-content docutils">
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script src="_static/ext_lang.js?v=027926fc"></script>
+    <script src="_static/ext_lang.js?v=e5ae8137"></script>
     </body>
 </html>

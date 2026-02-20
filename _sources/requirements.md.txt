@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 This section goes over what you need before you begin to work on this tutorial.
@@ -36,14 +41,21 @@ This section goes over what you need before you begin to work on this tutorial.
 :sync: py
 - **A recent version of Python**
 
-   As part of this tutorial you will create a Python project, so you need a [Python interpreter](https://python.org) installed on your computer, and some basic familiarty with this programming language.
+   As part of this tutorial you will create a Python project, so you need a [Python interpreter](https://python.org) installed on your computer. You also need some basic familiarity with this programming language.
 :::
 
 :::{tab-item} JavaScript
 :sync: js
 - **A recent version of Node.js**
 
-   As part of this tutorial you will create a JavaScript project, so you need [Node.js](https://nodejs.org) installed on your computer, and some basic familiariaty with this programming language.
+   As part of this tutorial you will create a JavaScript project, so you need [Node.js](https://nodejs.org) installed on your computer. You also need some basic familiariaty with this programming language.
 :::
+
+::::{tab-item} Go
+:sync: go
+- **A recent version of the Go toolchain**
+
+   As part of this tutorial you will create a Go project, so you need it [installed](https://go.dev/doc/install) on your computer. You also need some basic familiarity with this programming language.
+::::
 
 ::::

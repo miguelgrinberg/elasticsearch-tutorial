@@ -253,6 +253,11 @@ Python</label><div class="sd-tab-content docutils">
 JavaScript</label><div class="sd-tab-content docutils">
 <p> </p>
 </div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-2">
+Go</label><div class="sd-tab-content docutils">
+<p> </p>
+</div>
 </div>
 <p>In this section you will create a new project and add all the dependencies to it, including the official Elasticsearch client for your chosen programming language.</p>
 <p>Find a suitable parent directory for the project such as your <em>Documents</em> directory, and create a project directory named <em>elasticsearch-tutorial</em> in it:</p>
@@ -262,8 +267,8 @@ mkdir<span class="w"> </span>elasticsearch-tutorial
 </pre></div>
 </div>
 <div class="sd-tab-set invisible-tabs docutils">
-<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-3">
 Python</label><div class="sd-tab-content docutils">
 <p>Following Python best practices, the next step is to create a <em>virtual environment</em>, which is a private copy of the Python interpreter dedicated to this project.</p>
 <div class="admonition tip">
@@ -297,14 +302,14 @@ Python</label><div class="sd-tab-content docutils">
 <li><p><code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code>: a package that reads configuration variables from a file. You will use it to import your Elasticsearch credentials from a configuration file.</p></li>
 </ul>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-3">
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="js" for="sd-tab-item-4">
 JavaScript</label><div class="sd-tab-content docutils">
-<p>The next step is to create a JavaScript project in this directory. Make sure your current directory is the <em>elasticsearch-tutorial</em> directory you created above, and then enter the following commands to initialize the project:</p>
+<p>The next step is to create a JavaScript project in this directory. Make sure your current directory is the <em>elasticsearch-tutorial</em> directory you created above, and then enter the following command to initialize the project:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>init<span class="w"> </span>-y
 </pre></div>
 </div>
-<p>To complete the project creation, you will install the package dependencies that you will need to use in this tutorial. Run the following command to install these packages:</p>
+<p>To complete the project set up, you will install the package dependencies that you will need to use in this tutorial. Run the following command to install these packages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>install<span class="w"> </span>@elastic/elasticsearch<span class="w"> </span>dotenv
 </pre></div>
 </div>
@@ -312,6 +317,24 @@ JavaScript</label><div class="sd-tab-content docutils">
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&#64;elastic/elasticsearch</span></code>: the official Elasticsearch JavaScript client</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dotenv</span></code>: a package that reads configuration variables from a file. You will use it to import your Elasticsearch credentials from a configuration file.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
+Go</label><div class="sd-tab-content docutils">
+<p>The next step is to create a Go project in this directory. Make sure your current directory is the <em>elasticsearch-tutorial</em> directory you created above, and then enter the following command to initialize the project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go<span class="w"> </span>mod<span class="w"> </span>init<span class="w"> </span>elasticsearch-tutorial
+</pre></div>
+</div>
+<p>To complete the project set up, you will install the package dependencies that you will need to use in this tutorial. Run the following commands to install these packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go<span class="w"> </span>get<span class="w"> </span>github.com/elastic/go-elasticsearch/v9
+go<span class="w"> </span>get<span class="w"> </span>github.com/joho/godotenv
+</pre></div>
+</div>
+<p>The two dependencies added to the project are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">go-elasticsearch</span></code>: the official Elasticsearch Go client</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">godotenv</span></code>: a package that reads configuration variables from a file. You will use it to import your Elasticsearch credentials from a configuration file.</p></li>
 </ul>
 </div>
 </div>
@@ -373,6 +396,6 @@ JavaScript</label><div class="sd-tab-content docutils">
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script src="_static/ext_lang.js?v=027926fc"></script>
+    <script src="_static/ext_lang.js?v=e5ae8137"></script>
     </body>
 </html>
