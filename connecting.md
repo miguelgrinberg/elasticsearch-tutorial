@@ -1,5 +1,5 @@
 # Connecting to Elasticsearch
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -19,8 +19,9 @@ In this section you are going to write code to connect to your Elasticsearch ins
 
 To create a connection, an Elasticsearch client must be created with the appropriate connection options. You will now do this to verify that you can connect to the Elasticsearch instance created by `start-local`.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -42,8 +43,6 @@ class DB:
 
     def check(self):
         return self.client.info()
-
-    # more methods will be added here later
 
 
 if __name__ == '__main__':
@@ -75,8 +74,6 @@ class DB {
   async check() {
     return await this.client.info();
   }
-
-  // more methods will be added here later
 }
 
 async function main() {
@@ -96,8 +93,9 @@ The `DB` class is where all the database logic for the project will be defined. 
 
 The `check` method of the `DB` class calls the `info` method of the client and returns its response. Calling the `info` method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -121,8 +119,9 @@ The `main` function defines the code that will run when the script is started. I
 
 Run the application as follows:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py

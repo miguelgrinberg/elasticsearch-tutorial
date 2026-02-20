@@ -1,5 +1,5 @@
 # Running Elasticsearch
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 

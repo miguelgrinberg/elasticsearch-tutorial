@@ -1,5 +1,5 @@
 # Welcome to the Elasticsearch Tutorial!
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -32,3 +32,20 @@ indices
 searching
 conclusion
 :::
+
+:::::{tab-set}
+:sync-group: lang
+:class: invisible-tab-set
+
+::::{tab-item} Python
+:sync: py
+Hi Python
+::::
+
+::::{tab-item} JavaScript
+:sync: js
+Hi JS
+::::
+
+:::::
+

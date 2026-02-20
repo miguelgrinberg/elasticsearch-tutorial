@@ -1,5 +1,5 @@
 # Requirements
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -28,8 +28,9 @@ This section goes over what you need before you begin to work on this tutorial.
 
    This tutorial requires you to work in the command-line, so you are expected to have some experience working with `bash` or a similar shell. If you are using Windows, working under WSL would give you exactly the same experience a Linux or Mac user would have. If you, however, prefer to use PowerShell, then you will need to translate some `bash` commands to their Windows equivalents.
 
-::::{invisible-tab-set}
+::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 :::{tab-item} Python
 :sync: py

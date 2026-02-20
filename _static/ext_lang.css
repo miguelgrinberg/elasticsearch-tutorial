@@ -1,13 +1,17 @@
-.invisible-tab-set {
+.hidden {
+  display: none;
+}
+
+.invisible-tabs {
   --sd-color-tabs-overline: rgba(0, 0, 0, 0);
   --sd-color-tabs-underline: rgba(0, 0, 0, 0);
 }
 
-.invisible-tab-set label, .invisible-tab-set input {
+.invisible-tabs label, .invisible-tabs input {
   display: none;
 }
 
-.invisible-tab-set .sd-tab-content {
+.invisible-tabs .sd-tab-content {
   padding: 0;
 }
 
@@ -19,8 +23,4 @@
 
 #lang-select {
   font-size: var(--sidebar-caption-font-size);
-}
-
-.hidden {
-  display: none;
 }

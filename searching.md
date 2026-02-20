@@ -1,5 +1,5 @@
 # Searching
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -25,8 +25,9 @@ The most basic way to search an index is to look for a specific word or sequence
 
 Here is an example of a match query:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -60,8 +61,9 @@ await self.client.search({
 
 In this example, the `content` field of the 'documents' index is searched for the words `work from home`. The return value from the `search` method includes the documents that were found, each with a relevance score.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -109,8 +111,9 @@ The response from a search includes a lot of useful information beyond the list 
 
 To use the search feature, add a `search` command-line argument that runs a search and prints the results:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -145,8 +148,9 @@ You can see that each result includes a `_score` attribute. This is the relevanc
 
 You are now ready to search the index:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -189,8 +193,9 @@ To run a search on multiple fields, the [Multi-match](https://www.elastic.co/doc
 
 Instead of adding yet another method, this time update the existing `search` method to use multi-match instead of the simple match:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -231,7 +236,7 @@ Instead of adding yet another method, this time update the existing `search` met
 
 The multi-match query uses a slightly different format that makes it possible to provide a list of fields to search. If you repeat a search with the updated search you will likely notice that the ranking of results is different, because now the three text fields in the index are used instead of just one.
 
-Below you can see the results for the "work for home" search used above. Note how there are some documents were rated higher than before due to having the words in the query in the additional fields added to the search:
+Below you can see the results for the "work for home" search used above. Note how there are some documents that were rated higher than before due to having the words in the query in the additional fields added to the search:
 
 ```
 [6.235] Work From Home Policy (id:1)
@@ -246,8 +251,9 @@ Below you can see the results for the "work for home" search used above. Note ho
 [0.994] Sales Engineering Collaboration (id:7)
 ```
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py

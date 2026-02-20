@@ -1,5 +1,5 @@
 # Working with Documents and Indices
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -25,8 +25,9 @@ If you have worked with other databases, you may know that many of them require 
 
 This is how you create an Elasticsearch index using the Python client library:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -50,8 +51,9 @@ Indices in Elasticsearch are identified with a name, which is passed as an argum
 
 Here is how to delete an index:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -73,8 +75,9 @@ If you attempt to create an index with a name that is already assigned to an exi
 
 Next you will add a {lang-id}`createIndex,py:create_index` method to the application, along with a few other improvements.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -183,10 +186,15 @@ The new {lang-id}`createIndex,py:create_index` method first deletes the index wi
 
 Then at the bottom, an instance of the `DB` class is created with the index name `documents`, and then a simple command-line parser looks for a `check` or `create` argument. For `check`, it prints the results of calling the `check` method as the previous version of the application, and for `create`, it calls the new {lang-id}`createIndex,py:create_index` method.
 
+:::{hint}
+Note the comments in the code indicating the places where more functionality will be added later.
+:::
+
 Try calling this new version of the application with the `check` and `create` arguments as follows:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -217,8 +225,9 @@ node main.js create
 
 Elasticsearch documents are represented as [JSON](https://en.wikipedia.org/wiki/JSON) objects with a set of key/value pairs. To add a document to an index, the `index` method of the Elasticsearch client is used. Here is an example:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -253,8 +262,9 @@ In this example, the `id` field assigns an unique identifier to the document. If
 
 Let's add two more methods to the `DB` class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -293,8 +303,9 @@ The {lang-id}`getDocument,py:get_document` method takes a document identifier as
 
 To see the new methods in action, extend the command-line parsing at the bottom of the application with new `add` and `get` options:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -340,8 +351,9 @@ To see the new methods in action, extend the command-line parsing at the bottom 
 
 The new `add` command inserts a test document into the index, identified as `"1"`. The `get` command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -403,8 +415,9 @@ The new ingest solution will read and parse documents from this file one by one 
 
 The {lang-id}`addManyDocuments,py:add_many_documents` method shown below implements the bulk ingest solution.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -478,8 +491,9 @@ The identifiers are generated from a numeric incrementing counter in this case. 
 
 Let's add a new `bulk` command to the application that uses the new method:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -511,8 +525,9 @@ Let's add a new `bulk` command to the application that uses the new method:
 
 This new `bulk` command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the *data.ndjson* file as instructed above, and then run the ingest as follows:
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
