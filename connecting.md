@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 In this section you are going to write code to connect to your Elasticsearch instance.
@@ -51,6 +56,13 @@ if __name__ == '__main__':
 ```
 
 The first thing that happens in this file after the imports is the call to the `load_dotenv()` function from the [python-dotenv](https://github.com/theskumar/python-dotenv) package. This function reads the variables that are stored in the *.env* file and imports them into the Python process as environment variables. Once they are imported, they can be accessed from the `os.environ` dictionary.
+
+The `DB` class is where all the database logic for the project will be defined. In the constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate.
+
+The `check` method calls the `info` method of the client and returns its response. Calling the `info` method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.
+
+The last three lines of the application define the code that will run when the script is started. In this first version, the application creates an instance of the `DB` class, and prints the result of calling its `check` method.
+
 ::::
 
 ::::{tab-item} JavaScript
@@ -85,33 +97,91 @@ main();
 ```
 
 The first line in this file invokes the `config` function of the `dotenv` package. This reads the variables that are stored in the *.env* file and imports them into the process as environment variables. Once they are imported, they can be accessed from the `process.env` object.
-::::
 
-:::::
+The `DB` class is where all the database logic for the project will be defined. In the constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate.
 
-The `DB` class is where all the database logic for the project will be defined. In the class constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as arguments, to allow the client to authenticate.
-
-The `check` method of the `DB` class calls the `info` method of the client and returns its response. Calling the `info` method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.
-
-:::::{tab-set}
-:sync-group: lang
-:class: invisible-tabs
-
-::::{tab-item} Python
-:sync: py
-
-The last three lines of the application define the code that will run when the script is started. In this first version, the application creates an instance of the `DB` class, and prints the result of calling its `check` method.
-
-::::
-
-::::{tab-item} JavaScript
-:sync: js
+The `check` method calls the `info` method of the client and returns its response. Calling the `info` method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.
 
 :::{hint}
 The methods of the Elasticsearch client for JavaScript return promises. They can be invoked with async/await or promise syntax.
 :::
 
 The `main` function defines the code that will run when the script is started. In this first, version, the application creates an instance of the `DB` class, and prints the result of calling its `check` method.
+
+::::
+
+::::{tab-item} Go
+:sync: go
+
+Copy the following code into a file named *main.go* in your project directory:
+
+```go
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+	"github.com/joho/godotenv"
+)
+
+type DB struct {
+	Client *elasticsearch.TypedClient
+}
+
+func NewDB() (*DB, error) {
+	client, err := elasticsearch.NewTypedClient(
+		elasticsearch.Config{
+			Addresses: []string{os.Getenv("ELASTICSEARCH_URL")},
+			APIKey:    os.Getenv("ELASTIC_API_KEY"),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &DB{Client: client}, nil
+}
+
+func (db DB) Close(ctx context.Context) error {
+	return db.Client.Close(ctx)
+}
+
+func (db DB) Check(ctx context.Context) (*info.Response, error) {
+	return db.Client.Info().Do(ctx)
+}
+
+func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	db, err := NewDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close(context.Background())
+
+	response, err := db.Check(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	r, _ := json.Marshal(response)
+	fmt.Println(string(r))
+}
+```
+
+The `DB` struct is where all the database logic for the project will be defined. In the `NewDB` function, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as configuration arguments, to allow the client to authenticate. Notice that the first line in the `main` function calls `Load` from the `godotenv` package. This will read the variables that you stored in the *.env* file into the environment.
+
+The `Close` function performs cleanup, by closing the Elasticearch client.
+
+The `Check` function calls the `Info` method of the client and returns its response. Calling the `info` method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.
+
+In the `main` function, after importing the environment variables, an instance of `NewDB` is created, with a deferred call to `Close`. Then it calls the `Check` function and prints the result to the terminal. To print the response in a format that is easy to understand, it is marshaled as a JSON object.
 
 ::::
 

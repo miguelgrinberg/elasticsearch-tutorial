@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 In this section you are going to learn how to run full-text searches on the index you have built.
@@ -55,6 +60,11 @@ await self.client.search({
   }
 });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -103,6 +113,11 @@ The expresion `results['hits']['hits']` returns the list of documents that were 
 The expresion `results.hits.hits` returns the list of documents that were found.
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 :::{hint}
@@ -121,7 +136,7 @@ To use the search feature, add a `search` command-line argument that runs a sear
     elif sys.argv[1] == 'search':
         results = db.search(sys.argv[2])
         for result in results:
-            print(f'[{result["_score"]:.03f}] {result["_source"]["name"]} (id:{result["_id"]})')
+            print(f'[{result["_score"]:.03f}] {result["_source"]["title"]} (id:{result["_id"]})')
     else:
         print('Error: valid commands are check, create, add, get, bulk and search')
 ```
@@ -133,13 +148,18 @@ To use the search feature, add a `search` command-line argument that runs a sear
   else if (process.argv[2] == 'search') {
     const results = await db.search(process.argv[3]);
     for (const result of results) {
-      console.log(`[${result._score.toFixed(3)}] ${result._source.name} (id:${result._id})`);
+      console.log(`[${result._score.toFixed(3)}] ${result._source.title} (id:${result._id})`);
     }
   }
   else {
     console.log('Error: valid commands are check, create, add, get, bulk and search');
   }
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -164,6 +184,11 @@ python main.py search "work from home"
 ```bash
 node main.js search "work from home"
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -206,7 +231,7 @@ Instead of adding yet another method, this time update the existing `search` met
             query={
                 'multi_match': {
                     'query': search_query,
-                    'fields': ['name', 'summary', 'content']
+                    'fields': ['title', 'summary', 'content']
                 }
             }
         )
@@ -223,13 +248,18 @@ Instead of adding yet another method, this time update the existing `search` met
       query: {
         multi_match: {
           query: searchQuery,
-          fields: ['name', 'summary', 'content'],
+          fields: ['title', 'summary', 'content'],
         }
       }
     });
     return results.hits.hits;
   }
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -250,20 +280,3 @@ Below you can see the results for the "work for home" search used above. Note ho
 [1.107] New Employee Onboarding Guide (id:15)
 [0.994] Sales Engineering Collaboration (id:7)
 ```
-
-:::::{tab-set}
-:sync-group: lang
-:class: invisible-tabs
-
-::::{tab-item} Python
-:sync: py
-&nbsp;
-::::
-
-::::{tab-item} JavaScript
-:sync: js
-&nbsp;
-::::
-
-:::::
-

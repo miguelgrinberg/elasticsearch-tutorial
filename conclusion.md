@@ -1,5 +1,5 @@
 # Conclusion
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -10,6 +10,11 @@
 
 ::::{tab-item} JavaScript
 :sync: js
+&nbsp;
+::::
+
+::::{tab-item} Go
+:sync: go
 &nbsp;
 ::::
 
@@ -25,8 +30,9 @@ We hope you have enjoyed this tutorial and are encouraged to learn more about El
 
 For your reference, below you can see the complete source code for the tutorial project that you built.
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py
@@ -81,7 +87,7 @@ class DB:
             query={
                 'multi_match': {
                     'query': search_query,
-                    'fields': ['name', 'summary', 'content']
+                    'fields': ['title', 'summary', 'content']
                 }
             }
         )
@@ -96,20 +102,20 @@ if __name__ == '__main__':
         db.create_index()
     elif sys.argv[1] == 'add':
         db.add_document({
-            'name': 'Work From Home Policy',
+            'title': 'Work From Home Policy',
             'category': 'teams',
             'content': 'The purpose of this full-time work-from-home policy is...',
-            'created_on': '2023-11-02',
         }, id='1')
     elif sys.argv[1] == 'get':
-        print(db.get_document(sys.argv[2]))
+        response = db.get_document(sys.argv[2])
+        print(response['_source'])
     elif sys.argv[1] == 'bulk':
         count = db.add_many_documents(sys.argv[2])
         print(f'Ingested {count} documents.')
     elif sys.argv[1] == 'search':
         results = db.search(sys.argv[2])
         for result in results:
-            print(f'[{result["_score"]:.03f}] {result["_source"]["name"]} (id:{result["_id"]})')
+            print(f'[{result["_score"]:.03f}] {result["_source"]["title"]} (id:{result["_id"]})')
     else:
         print('Error: valid commands are check, create, add, get, bulk and search')
 ```
@@ -179,7 +185,7 @@ class DB {
       query: {
         multi_match: {
           query: searchQuery,
-          fields: ['name', 'summary', 'content'],
+          fields: ['title', 'summary', 'content'],
         }
       }
     });
@@ -197,14 +203,14 @@ async function main() {
   }
   else if (process.argv[2] == 'add') {
     await db.addDocument({
-      name: 'Work From Home Policy',
+      title: 'Work From Home Policy',
       category: 'teams',
       content: 'The purpose of this full-time work-from-home policy is...',
-      created_on: '2023-11-02',
     }, '1');
   }
   else if (process.argv[2] == 'get') {
-    console.log(await db.getDocument(process.argv[3]));
+    const response = await db.getDocument(process.argv[3]);
+    console.log(response._source);
   }
   else if (process.argv[2] == 'bulk') {
     const count = await db.addManyDocuments(process.argv[3]);
@@ -213,7 +219,7 @@ async function main() {
   else if (process.argv[2] == 'search') {
     const results = await db.search(process.argv[3]);
     for (const result of results) {
-      console.log(`[${result._score.toFixed(3)}] ${result._source.name} (id:${result._id})`);
+      console.log(`[${result._score.toFixed(3)}] ${result._source.title} (id:${result._id})`);
     }
   }
   else {
@@ -223,6 +229,183 @@ async function main() {
 
 main();
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+
+```go
+package main
+
+import (
+	"bufio"
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"strings"
+
+	"github.com/elastic/go-elasticsearch/v9"
+	"github.com/elastic/go-elasticsearch/v9/esutil"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/core/get"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/core/search"
+	"github.com/elastic/go-elasticsearch/v9/typedapi/types"
+	"github.com/joho/godotenv"
+)
+
+type Document struct {
+	Title    string `json:"title"`
+	Category string `json:"category"`
+	Summary  string `json:"summary"`
+	Content  string `json:"content"`
+}
+
+type DB struct {
+	Client *elasticsearch.TypedClient
+	Index  string
+}
+
+func NewDB(index string) (*DB, error) {
+	client, err := elasticsearch.NewTypedClient(
+		elasticsearch.Config{
+			Addresses: []string{os.Getenv("ELASTICSEARCH_URL")},
+			APIKey:    os.Getenv("ELASTIC_API_KEY"),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &DB{Client: client, Index: index}, nil
+}
+
+func (db DB) Close(ctx context.Context) error {
+	return db.Client.Close(ctx)
+}
+
+func (db DB) Check(ctx context.Context) (*info.Response, error) {
+	return db.Client.Info().Do(ctx)
+}
+
+func (db DB) CreateIndex(ctx context.Context) error {
+	if _, err := db.Client.Indices.Delete(db.Index).IgnoreUnavailable(true).Do(ctx); err != nil {
+		return err
+	}
+	_, err := db.Client.Indices.Create(db.Index).Do(ctx)
+	return err
+}
+
+func (db DB) AddDocument(ctx context.Context, document string, id string) error {
+	_, err := db.Client.Index(db.Index).Id(id).Raw(
+		strings.NewReader(document),
+	).Do(context.Background())
+	return err
+}
+
+func (db DB) GetDocument(ctx context.Context, id string) (*get.Response, error) {
+	return db.Client.Get(db.Index, id).Do(ctx)
+}
+
+func (db DB) AddManyDocuments(ctx context.Context, dataFile string) (int, error) {
+	indexer, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+		Client: db.Client,
+		Index:  db.Index,
+	})
+	defer indexer.Close(ctx)
+
+	file, err := os.Open(dataFile)
+	if err != nil {
+		return 0, err
+	}
+	defer file.Close()
+
+	count := 0
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		count++
+		if err := indexer.Add(ctx, esutil.BulkIndexerItem{
+			Action:     "index",
+			DocumentID: strconv.Itoa(count),
+			Body:       strings.NewReader(scanner.Text()),
+		}); err != nil {
+			return 0, err
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (db DB) Search(ctx context.Context, searchQuery string) ([]types.Hit, error) {
+	response, err := db.Client.Search().Index(db.Index).Request(&search.Request{
+		Query: &types.Query{
+			MultiMatch: &types.MultiMatchQuery{
+				Query:  searchQuery,
+				Fields: []string{"title", "summary", "content"},
+			},
+		},
+	}).Do(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return response.Hits.Hits, nil
+}
+
+func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	db, err := NewDB("documents")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close(context.Background())
+
+	if os.Args[1] == "check" {
+		response, err := db.Check(context.Background())
+		if err != nil {
+			fmt.Println(response)
+		}
+	} else if os.Args[1] == "create" {
+		err = db.CreateIndex(context.Background())
+	} else if os.Args[1] == "add" {
+		err = db.AddDocument(context.Background(), `{
+            "title": "Work From Home Policy",
+            "category": "teams",
+            "content": "The purpose of this full-time work-from-home policy is..."
+        }`, "1")
+	} else if os.Args[1] == "get" {
+		response, err := db.GetDocument(context.Background(), os.Args[2])
+		if err == nil {
+			fmt.Println(string(response.Source_))
+		}
+	} else if os.Args[1] == "bulk" {
+		count, err := db.AddManyDocuments(context.Background(), os.Args[2])
+		if err == nil {
+			fmt.Printf("Ingested %d documents.\n", count)
+		}
+	} else if os.Args[1] == "search" {
+		results, err := db.Search(context.Background(), os.Args[2])
+		if err == nil {
+			for _, result := range results {
+				var doc Document
+				json.Unmarshal(result.Source_, &doc)
+				fmt.Printf("[%.3f] %s (id:%s)\n", *result.Score_, doc.Title, *result.Id_)
+			}
+		}
+	} else {
+		log.Fatal(fmt.Errorf("Error: valid commands are check, create, add, get, bulk and search"))
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
 ::::
 
 :::::

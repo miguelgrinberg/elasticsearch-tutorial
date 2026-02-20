@@ -13,6 +13,11 @@
 &nbsp;
 ::::
 
+::::{tab-item} Go
+:sync: go
+&nbsp;
+::::
+
 :::::
 
 Two very important concepts in Elasticsearch are *documents* and *indices*.
@@ -43,6 +48,11 @@ await client.indices.create({ index: 'documents' });
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 :::{hint}
@@ -67,6 +77,11 @@ client.indices.delete(index='documents')
 ```js
 await this.client.indices.delete({ index: 'documents' });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -174,6 +189,11 @@ main();
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 There are a few improvements in this version of the project.
@@ -218,6 +238,11 @@ node main.js create
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 
@@ -233,10 +258,9 @@ Elasticsearch documents are represented as [JSON](https://en.wikipedia.org/wiki/
 :sync: py
 ```python
 document = {
-    'name': 'Work From Home Policy',
+    'title': 'Work From Home Policy',
     'category': 'teams',
     'contents': 'The purpose of this full-time work-from-home policy is...',
-    'created_on': '2023-11-02',
 }
 client.index(index='my_documents', document=document, id='1')
 ```
@@ -247,13 +271,17 @@ client.index(index='my_documents', document=document, id='1')
 
 ```js
 document = {
-    name: 'Work From Home Policy',
+    title: 'Work From Home Policy',
     category: 'teams',
     contents: 'The purpose of this full-time work-from-home policy is...',
-    created_on: '2023-11-02',
 }
 await this.client.index({ index: this.index, document: document, id: '1' });
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -295,6 +323,11 @@ Let's add two more methods to the `DB` class, to add and retrieve documents. Be 
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 The {lang-id}`addDocument,py:add_document` method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.
@@ -312,13 +345,13 @@ To see the new methods in action, extend the command-line parsing at the bottom 
 ```python
     elif sys.argv[1] == 'add':
         db.add_document({
-            'name': 'Work From Home Policy',
+            'title': 'Work From Home Policy',
             'category': 'teams',
             'content': 'The purpose of this full-time work-from-home policy is...',
-            'created_on': '2023-11-02',
         }, id='1')
     elif sys.argv[1] == 'get':
-        print(db.get_document(sys.argv[2]))
+        response = db.get_document(sys.argv[2])
+        print(response['_source'])
     # more commands will be added here later
     else:
         print('Error: valid commands are check, create, add and get')
@@ -331,20 +364,25 @@ To see the new methods in action, extend the command-line parsing at the bottom 
 ```js
   else if (process.argv[2] == 'add') {
     await db.addDocument({
-      name: 'Work From Home Policy',
+      title: 'Work From Home Policy',
       category: 'teams',
       content: 'The purpose of this full-time work-from-home policy is...',
-      created_on: '2023-11-02',
     }, '1');
   }
   else if (process.argv[2] == 'get') {
-    console.log(await db.getDocument(process.argv[3]));
+    const response = await db.getDocument(process.argv[3]);
+    console.log(response._source);
   }
   // more commands will be added here later
   else {
     console.log('Error: valid commands are check, create, add and get');
   }
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::
@@ -378,24 +416,20 @@ node main.js get 1
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 The `get` command should print the following information:
 
 ```js
 {
-  _index: 'documents',
-  _id: '1',
-  _version: 1,
-  _seq_no: 0,
-  _primary_term: 1,
-  found: true,
-  _source: {
-    name: 'Work From Home Policy',
-    category: 'teams',
-    content: 'The purpose of this full-time work-from-home policy is...',
-    created_on: '2023-11-02'
-  }
+  title: 'Work From Home Policy',
+  category: 'teams',
+  content: 'The purpose of this full-time work-from-home policy is...',
 }
 ```
 
@@ -408,7 +442,7 @@ When setting up a new Elasticsearch index for a real project, you are likely goi
 Now you are going to implement a bulk ingest option using a dataset in [NDJSON](https://github.com/ndjson/ndjson-spec) format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using `curl`:
 
 ```bash
-curl -L -o data.ndjson https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/332f8c8de4191ec6694228b587e40a3eb80c15cb/data.ndjson
+curl -L -o data.ndjsonhttps://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
 ```
 
 The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.
@@ -487,6 +521,11 @@ As the bulk helper receives each document from the generator function, it calls 
 The identifiers are generated from a numeric incrementing counter in this case. This is just one of many alternatives to provide identifiers, it is not necessary for these identifiers to be numbers. It is also possible to omit the `_id` key to have Elasticsearch generate random identifiers.
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 Let's add a new `bulk` command to the application that uses the new method:
@@ -521,6 +560,11 @@ Let's add a new `bulk` command to the application that uses the new method:
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+TODO
+::::
+
 :::::
 
 This new `bulk` command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the *data.ndjson* file as instructed above, and then run the ingest as follows:
@@ -541,6 +585,11 @@ python main.py bulk data.ndjson
 ```bash
 node main.js bulk data.ndjson
 ```
+::::
+
+::::{tab-item} Go
+:sync: go
+TODO
 ::::
 
 :::::

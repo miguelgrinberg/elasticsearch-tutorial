@@ -26,7 +26,7 @@ extensions = [
     'sphinxcontrib.mermaid',
     'lang',
 ]
-myst_enable_extensions = ['colon_fence', 'smartquotes', 'replacements', 'linkify', 'deflist']
+myst_enable_extensions = ['colon_fence', 'smartquotes', 'replacements', 'deflist']
 myst_heading_anchors = 3
 
 templates_path = ['_templates']
