@@ -117,7 +117,7 @@ if __name__ == '__main__':
         for result in results:
             print(f'[{result["_score"]:.03f}] {result["_source"]["title"]} (id:{result["_id"]})')
     else:
-        print('Error: valid commands are check, create, add, get, bulk and search')
+        print('Error: unknown command')
 ```
 ::::
 
@@ -223,7 +223,7 @@ async function main() {
     }
   }
   else {
-    console.log('Error: valid commands are check, create, add, get, bulk and search');
+    console.log('Error: unknown command');
   }
 }
 
@@ -398,7 +398,7 @@ func main() {
 			}
 		}
 	} else {
-		log.Fatal(fmt.Errorf("Error: valid commands are check, create, add, get, bulk and search"))
+		log.Fatal(fmt.Errorf("Error: unknown command"))
 	}
 	if err != nil {
 		log.Fatal(err)

@@ -170,8 +170,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	r, _ := json.Marshal(response)
-	fmt.Println(string(r))
+	printableResponse, _ := json.Marshal(response)
+	fmt.Println(string(printableResponse))
 }
 ```
 
@@ -207,9 +207,16 @@ node main.js
 ```
 ::::
 
+::::{tab-item} Go
+:sync: go
+```bash
+go run ./main.go
+```
+::::
+
 :::::
 
-The value returned by the `check` method should be printed to your terminal. This is, in turn, the response returned by Elasticsearch's `info` method. It should look more or less like the following, but note that some values such as versions, dates and hashes in your response will be different:
+The value returned by the {lang-id}`check,go:Check` method should be printed to your terminal. This is, in turn, the response returned by Elasticsearch's {lang-id}`info,go:Info` method. It should look more or less like the following, but note that some values such as versions, dates and hashes in your response will be different:
 
 ```js
 {

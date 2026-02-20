@@ -387,8 +387,8 @@ Go</label><div class="sd-tab-content docutils">
 <span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 <span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">printableResponse</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">printableResponse</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -414,8 +414,15 @@ JavaScript</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-8">
+Go</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go<span class="w"> </span>run<span class="w"> </span>./main.go
+</pre></div>
 </div>
-<p>The value returned by the <code class="docutils literal notranslate"><span class="pre">check</span></code> method should be printed to your terminal. This is, in turn, the response returned by Elasticsearch’s <code class="docutils literal notranslate"><span class="pre">info</span></code> method. It should look more or less like the following, but note that some values such as versions, dates and hashes in your response will be different:</p>
+</div>
+</div>
+<p>The value returned by the <span class="lang-choices lang-id">check,go:Check</span> method should be printed to your terminal. This is, in turn, the response returned by Elasticsearch’s <span class="lang-choices lang-id">info,go:Info</span> method. It should look more or less like the following, but note that some values such as versions, dates and hashes in your response will be different:</p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;elasticsearch&#39;</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">cluster_name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;docker-cluster&#39;</span><span class="p">,</span>

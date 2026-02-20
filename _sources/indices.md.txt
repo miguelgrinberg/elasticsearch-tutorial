@@ -50,7 +50,9 @@ await client.indices.create({ index: 'documents' });
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+response, err := Client.Indices.Create("documents").Do(context.Background())
+```
 ::::
 
 :::::
@@ -81,7 +83,9 @@ await this.client.indices.delete({ index: 'documents' });
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+response, err := Client.Indices.Delete("documents").Do(context.Background())
+```
 ::::
 
 :::::
@@ -135,7 +139,7 @@ if __name__ == '__main__':
         db.create_index()
     # more commands will be added here later
     else:
-        print('Error: valid commands are check and create')
+        print('Error: unknown command')
 ```
 ::::
 
@@ -181,7 +185,7 @@ async function main() {
   }
   // more commands will be added here later
   else {
-    console.log('Error: valid commands are check and create');
+    console.log('Error: unknown command');
   }
 }
 
@@ -191,7 +195,94 @@ main();
 
 ::::{tab-item} Go
 :sync: go
-TODO
+
+Replace the contents of your *main.go* file to the following code:
+```go
+package main
+
+import (
+    "context"
+    "encoding/json"
+    "fmt"
+    "log"
+    "os"
+
+    "github.com/elastic/go-elasticsearch/v9"
+    "github.com/elastic/go-elasticsearch/v9/typedapi/core/info"
+    "github.com/joho/godotenv"
+)
+
+type Document struct {
+    Title    string `json:"title"`
+    Category string `json:"category"`
+    Summary  string `json:"summary"`
+    Content  string `json:"content"`
+}
+
+type DB struct {
+    Client *elasticsearch.TypedClient
+    Index  string
+}
+
+func NewDB(index string) (*DB, error) {
+    client, err := elasticsearch.NewTypedClient(
+        elasticsearch.Config{
+            Addresses: []string{os.Getenv("ELASTICSEARCH_URL")},
+            APIKey:    os.Getenv("ELASTIC_API_KEY"),
+        },
+    )
+    if err != nil {
+        return nil, err
+    }
+    return &DB{Client: client, Index: index}, nil
+}
+
+func (db DB) Close(ctx context.Context) error {
+    return db.Client.Close(ctx)
+}
+
+func (db DB) Check(ctx context.Context) (*info.Response, error) {
+    return db.Client.Info().Do(ctx)
+}
+
+func (db DB) CreateIndex(ctx context.Context) error {
+    if _, err := db.Client.Indices.Delete(db.Index).IgnoreUnavailable(true).Do(ctx); err != nil {
+        return err
+    }
+    _, err := db.Client.Indices.Create(db.Index).Do(ctx)
+    return err
+}
+
+// more functions will be added here
+
+func main() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+    db, err := NewDB("documents")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close(context.Background())
+
+    if os.Args[1] == "check" {
+        response, err := db.Check(context.Background())
+        if err == nil {
+            printableResponse, _ := json.Marshal(response)
+            fmt.Println(string(printableResponse))
+        }
+    } else if os.Args[1] == "create" {
+        err = db.CreateIndex(context.Background())
+    // more commands will be added here
+    } else {
+        log.Fatal(fmt.Errorf("Error: unknown command"))
+    }
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+```
 ::::
 
 :::::
@@ -200,14 +291,14 @@ There are a few improvements in this version of the project.
 
 First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.
 
-The constructor of the `DB` class now takes the `index` name as an argument. This name is stored in an `index` instance variable.
+The constructor of the `DB` {lang-text}`class,go:struct` now takes `index` name as an argument, the name of the index to use. This name is stored, so that it can be used in all operations later.
 
-The new {lang-id}`createIndex,py:create_index` method first deletes the index with the name that was passed in the constructor. The `ignore_unavailable` option, given to the `delete` call, prevents a failure when the index name isn't found. After deleting the index, a new index is created with that name.
+The new {lang-id}`createIndex,py:create_index,go:CreateIndex` {lang-text}`method,go:function` first deletes the index with the name that was passed in the constructor. The {lang-id}`ignore_unavailable,go:IgnoreUnavailable` option, given to the delete call, prevents a failure when the index name isn't found. After deleting the index, a new index is created with that name.
 
-Then at the bottom, an instance of the `DB` class is created with the index name `documents`, and then a simple command-line parser looks for a `check` or `create` argument. For `check`, it prints the results of calling the `check` method as the previous version of the application, and for `create`, it calls the new {lang-id}`createIndex,py:create_index` method.
+{lang-text}`In the main function,py:Then at the bottom`, an instance of the `DB` class is created with the index name `documents`, and then a simple command-line parser looks for a `check` or `create` argument. For `check`, it prints the results of calling the `check` method as the previous version of the application did, and for `create`, it calls the new {lang-id}`createIndex,py:create_index,go:CreateIndex` {lang-text}`method,go:function`.
 
 :::{hint}
-Note the comments in the code indicating the places where more functionality will be added later.
+Note that there are comments in the code indicating the places where more functionality will be added later.
 :::
 
 Try calling this new version of the application with the `check` and `create` arguments as follows:
@@ -240,7 +331,13 @@ node main.js create
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```bash
+# to check the Elasticsearch connection
+go run ./main.go check
+
+# to recreate the index
+go run ./main.go create
+```
 ::::
 
 :::::
@@ -281,14 +378,24 @@ await this.client.index({ index: this.index, document: document, id: '1' });
 
 ::::{tab-item} Go
 :sync: go
-TODO
+
+```go
+document := `{
+    "title": "Work From Home Policy",
+    "category": "teams",
+    "content": "The purpose of this full-time work-from-home policy is..."
+}`
+response, err := db.Client.Index(db.Index).Id("1").Raw(
+    strings.NewReader(document),
+).Do(context.Background())
+```
 ::::
 
 :::::
 
-In this example, the `id` field assigns an unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.
+In this example, the {lang-id}`id,go:Id` {lang-text}`field,go:option` assigns a unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.
 
-Let's add two more methods to the `DB` class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.
+Let's add two more {lang-text}`methods,go:functions` to the `DB` class, to add and retrieve documents. Be careful to insert them in the place indicated by the comment, leaving the remaining parts of the application untouched.
 
 :::::{tab-set}
 :sync-group: lang
@@ -325,14 +432,39 @@ Let's add two more methods to the `DB` class, to add and retrieve documents. Be 
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+func (db DB) AddDocument(ctx context.Context, document string, id string) error {
+    _, err := db.Client.Index(db.Index).Id(id).Raw(
+        strings.NewReader(document),
+    ).Do(context.Background())
+    return err
+}
+
+func (db DB) GetDocument(ctx context.Context, id string) (*get.Response, error) {
+    return db.Client.Get(db.Index, id).Do(ctx)
+}
+
+// more functions will be added here later
+```
+
+There are two new imports required by this added code that you need to insert at the top:
+
+```go
+import (
+    // ...
+    "strings"
+    "github.com/elastic/go-elasticsearch/v9/typedapi/core/get"
+)
+```
+
+
 ::::
 
 :::::
 
-The {lang-id}`addDocument,py:add_document` method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.
+The {lang-id}`addDocument,py:add_document,go:AddDocument` {lang-text}`method,go:function` takes a document, given as a {lang-text}`object,py:dictionary,go:JSON string`, and an optional unique identifier for it. It inserts the document into the index, under the given identifier.
 
-The {lang-id}`getDocument,py:get_document` method takes a document identifier as an argument, and returns the document as a response. 
+The {lang-id}`getDocument,py:get_document,go:GetDocument` method takes a document identifier as an argument, and returns the document as a response. 
 
 To see the new methods in action, extend the command-line parsing at the bottom of the application with new `add` and `get` options:
 
@@ -353,8 +485,6 @@ To see the new methods in action, extend the command-line parsing at the bottom 
         response = db.get_document(sys.argv[2])
         print(response['_source'])
     # more commands will be added here later
-    else:
-        print('Error: valid commands are check, create, add and get')
 ```
 ::::
 
@@ -374,15 +504,25 @@ To see the new methods in action, extend the command-line parsing at the bottom 
     console.log(response._source);
   }
   // more commands will be added here later
-  else {
-    console.log('Error: valid commands are check, create, add and get');
-  }
 ```
 ::::
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+    } else if os.Args[1] == "add" {
+        err = db.AddDocument(context.Background(), `{
+            "title": "Work From Home Policy",
+            "category": "teams",
+            "content": "The purpose of this full-time work-from-home policy is..."
+        }`, "1")
+    } else if os.Args[1] == "get" {
+        response, err := db.GetDocument(context.Background(), os.Args[2])
+        if err == nil {
+            fmt.Println(string(response.Source_))
+        }
+    // more commands will be added here later
+```
 ::::
 
 :::::
@@ -418,7 +558,15 @@ node main.js get 1
 
 ::::{tab-item} Go
 :sync: go
-TODO
+
+```bash
+# insert a test document with id="1"
+go run ./main.go add
+
+# retrieve document with id="1"
+go run ./main.go get 1
+```
+
 ::::
 
 :::::
@@ -433,21 +581,19 @@ The `get` command should print the following information:
 }
 ```
 
-In this response, the actual contents of the document are in the `_source` field. The other top-level fields are document metadata. You probably recognize the `_id` field, which has the document identifier, and `_index`, which has the index name.
-
 ## Ingesting documents in bulk
 
-When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client's `index` method for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a *bulk* feature that allows you to send multiple index operations in a single call.
+When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client's {lang-id}`index,go:Index` {lang-text}`method,go:function` for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a *bulk* feature that allows you to send multiple operations in a single call.
 
-Now you are going to implement a bulk ingest option using a dataset in [NDJSON](https://github.com/ndjson/ndjson-spec) format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using `curl`:
+Now you are going to implement a bulk ingest option using an example dataset in [NDJSON](https://github.com/ndjson/ndjson-spec) format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the example dataset to the project directory using `curl`:
 
 ```bash
-curl -L -o data.ndjsonhttps://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
+curl -L -o data.ndjson https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
 ```
 
 The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.
 
-The {lang-id}`addManyDocuments,py:add_many_documents` method shown below implements the bulk ingest solution.
+The {lang-id}`addManyDocuments,py:add_many_documents,go:AddManyDocuments` {lang-text}`method,go:function` shown below implements the bulk ingest solution.
 
 :::::{tab-set}
 :sync-group: lang
@@ -523,12 +669,63 @@ The identifiers are generated from a numeric incrementing counter in this case. 
 
 ::::{tab-item} Go
 :sync: go
-TODO
+
+```go
+func (db DB) AddManyDocuments(ctx context.Context, dataFile string) (int, error) {
+    indexer, err := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+        Client: db.Client,
+        Index:  db.Index,
+    })
+    defer indexer.Close(ctx)
+
+    file, err := os.Open(dataFile)
+    if err != nil {
+        return 0, err
+    }
+    defer file.Close()
+
+    count := 0
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        count++
+        if err := indexer.Add(ctx, esutil.BulkIndexerItem{
+            Action:     "index",
+            DocumentID: strconv.Itoa(count),
+            Body:       strings.NewReader(scanner.Text()),
+        }); err != nil {
+            return 0, err
+        }
+    }
+    if err := scanner.Err(); err != nil {
+        return 0, err
+    }
+    return count, nil
+}
+
+// more functions will be added here later
+```
+
+This code requires a few new imports, which you need to add at the top of the file:
+
+```go
+import (
+    // ...
+    "bufio"
+    "strconv"
+    "github.com/elastic/go-elasticsearch/v9/esutil"
+)
+```
+
+This function starts by creating a `BulkIndexer`. This is a specialized helper that accepts Elasticsearch operations and packages them into chunks before they are submitted. The indexer is configured with the instance of the Elasticsearch client and the index name. There are additional arguments that can be passed to control how the chunking logic works, but for this example the defaults are sufficient. The indexer has a `Close` function, so that is added as a deferred call.
+
+Next, file referenced by the `dataFile` argument is opened, and read line by line. For each line, the indexer's `Add` function is called with a `BulkIndexerItem` argument. This structure defines an action, which in this case is always `"index"`. The `DocumentId` attribute sets the unique identifier for each document, which is generated from a counter that is incremented before each line is processed. The `Body` attribute is set to the document data, given as a `Reader` instance.
+
+If no errors occur during the ingest, then the function returns the number of ingested documents.
 ::::
 
 :::::
 
-Let's add a new `bulk` command to the application that uses the new method:
+Let's now add a new `bulk` command that calls the new {lang-text}`method,go:function`:
 
 :::::{tab-set}
 :sync-group: lang
@@ -541,8 +738,6 @@ Let's add a new `bulk` command to the application that uses the new method:
         count = db.add_many_documents(sys.argv[2])
         print(f'Ingested {count} documents.')
     # more commands will be added here later
-    else:
-        print('Error: valid commands are check, create, add, get and bulk')
 ```
 ::::
 
@@ -554,15 +749,19 @@ Let's add a new `bulk` command to the application that uses the new method:
     console.log(`Ingested ${count} documents.`);
   }
   // more commands will be added here later
-  else {
-    console.log('Error: valid commands are check, create, add, get and bulk');
-  }
 ```
 ::::
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+    } else if os.Args[1] == "bulk" {
+        count, err := db.AddManyDocuments(context.Background(), os.Args[2])
+        if err == nil {
+            fmt.Printf("Ingested %d documents.\n", count)
+        }
+    // more commands will be added here
+```
 ::::
 
 :::::
@@ -589,7 +788,9 @@ node main.js bulk data.ndjson
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```bash
+go run ./main.go bulk data.ndjson
+```
 ::::
 
 :::::
@@ -597,5 +798,5 @@ TODO
 The output of this command should indicate that 15 documents were ingested.
 
 :::{hint}
-While this tutorial uses a small example dataset, the bulk ingest solution presented here is very robust and is able to scale to very large amounts of data. Thanks to the use of generators and the chunking applied by the bulk helper, it is possible to ingest datasets that are larger than the amount of memory available to the process.
+While this tutorial uses a small example dataset, the bulk ingest solution presented here is very robust and is able to scale to very large amounts of data. Thanks to the use of chunking, it is possible to ingest datasets that are larger than the amount of memory available to the process, since one one chunk is held in memory at a given time.
 :::

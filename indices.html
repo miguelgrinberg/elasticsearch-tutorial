@@ -283,7 +283,9 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-5">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Client</span><span class="p">.</span><span class="nx">Indices</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">&quot;documents&quot;</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="admonition hint">
@@ -309,7 +311,9 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-8">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Client</span><span class="p">.</span><span class="nx">Indices</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="s">&quot;documents&quot;</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>If you attempt to create an index with a name that is already assigned to an existing index, you will get an error.</p>
@@ -354,7 +358,7 @@ Python</label><div class="sd-tab-content docutils">
         <span class="n">db</span><span class="o">.</span><span class="n">create_index</span><span class="p">()</span>
     <span class="c1"># more commands will be added here later</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check and create&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: unknown command&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -398,7 +402,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">// more commands will be added here later</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check and create&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: unknown command&#39;</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -409,17 +413,103 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-11">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<p>Replace the contents of your <em>main.go</em> file to the following code:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;log&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/info&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/joho/godotenv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Document</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Title</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;title&quot;`</span>
+<span class="w">    </span><span class="nx">Category</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;category&quot;`</span>
+<span class="w">    </span><span class="nx">Summary</span><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;summary&quot;`</span>
+<span class="w">    </span><span class="nx">Content</span><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;content&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">DB</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Client</span><span class="w"> </span><span class="o">*</span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">TypedClient</span>
+<span class="w">    </span><span class="nx">Index</span><span class="w">  </span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">DB</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">NewTypedClient</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">elasticsearch</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTICSEARCH_URL&quot;</span><span class="p">)},</span>
+<span class="w">            </span><span class="nx">APIKey</span><span class="p">:</span><span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ELASTIC_API_KEY&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">Index</span><span class="p">:</span><span class="w"> </span><span class="nx">index</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">Check</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">info</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Info</span><span class="p">().</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">CreateIndex</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Indices</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">IgnoreUnavailable</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Indices</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
+
+<span class="c1">// more functions will be added here</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">godotenv</span><span class="p">.</span><span class="nx">Load</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Error loading .env file&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDB</span><span class="p">(</span><span class="s">&quot;documents&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;check&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Check</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">printableResponse</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">printableResponse</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CreateIndex</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">    </span><span class="c1">// more commands will be added here</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Error: unknown command&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>There are a few improvements in this version of the project.</p>
 <p>First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.</p>
-<p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class now takes the <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument. This name is stored in an <code class="docutils literal notranslate"><span class="pre">index</span></code> instance variable.</p>
-<p>The new <span class="lang-choices lang-id">createIndex,py:create_index</span> method first deletes the index with the name that was passed in the constructor. The <code class="docutils literal notranslate"><span class="pre">ignore_unavailable</span></code> option, given to the <code class="docutils literal notranslate"><span class="pre">delete</span></code> call, prevents a failure when the index name isn’t found. After deleting the index, a new index is created with that name.</p>
-<p>Then at the bottom, an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is created with the index name <code class="docutils literal notranslate"><span class="pre">documents</span></code>, and then a simple command-line parser looks for a <code class="docutils literal notranslate"><span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">create</span></code> argument. For <code class="docutils literal notranslate"><span class="pre">check</span></code>, it prints the results of calling the <code class="docutils literal notranslate"><span class="pre">check</span></code> method as the previous version of the application, and for <code class="docutils literal notranslate"><span class="pre">create</span></code>, it calls the new <span class="lang-choices lang-id">createIndex,py:create_index</span> method.</p>
+<p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> <span class="lang-choices lang-text">class,go:struct</span> now takes <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument, the name of the index to use. This name is stored, so that it can be used in all operations later.</p>
+<p>The new <span class="lang-choices lang-id">createIndex,py:create_index,go:CreateIndex</span> <span class="lang-choices lang-text">method,go:function</span> first deletes the index with the name that was passed in the constructor. The <span class="lang-choices lang-id">ignore_unavailable,go:IgnoreUnavailable</span> option, given to the delete call, prevents a failure when the index name isn’t found. After deleting the index, a new index is created with that name.</p>
+<p><span class="lang-choices lang-text">In the main function,py:Then at the bottom</span>, an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is created with the index name <code class="docutils literal notranslate"><span class="pre">documents</span></code>, and then a simple command-line parser looks for a <code class="docutils literal notranslate"><span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">create</span></code> argument. For <code class="docutils literal notranslate"><span class="pre">check</span></code>, it prints the results of calling the <code class="docutils literal notranslate"><span class="pre">check</span></code> method as the previous version of the application did, and for <code class="docutils literal notranslate"><span class="pre">create</span></code>, it calls the new <span class="lang-choices lang-id">createIndex,py:create_index,go:CreateIndex</span> <span class="lang-choices lang-text">method,go:function</span>.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Note the comments in the code indicating the places where more functionality will be added later.</p>
+<p>Note that there are comments in the code indicating the places where more functionality will be added later.</p>
 </div>
 <p>Try calling this new version of the application with the <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> arguments as follows:</p>
 <div class="sd-tab-set invisible-tabs docutils">
@@ -448,7 +538,13 @@ node<span class="w"> </span>main.js<span class="w"> </span>create
 <input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-14">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># to check the Elasticsearch connection</span>
+go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>check
+
+<span class="c1"># to recreate the index</span>
+go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>create
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -483,11 +579,20 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-17">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">document</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`{</span>
+<span class="s">    &quot;title&quot;: &quot;Work From Home Policy&quot;,</span>
+<span class="s">    &quot;category&quot;: &quot;teams&quot;,</span>
+<span class="s">    &quot;content&quot;: &quot;The purpose of this full-time work-from-home policy is...&quot;</span>
+<span class="s">}`</span>
+<span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Id</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">).</span><span class="nx">Raw</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">document</span><span class="p">),</span>
+<span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+</pre></div>
 </div>
 </div>
-<p>In this example, the <code class="docutils literal notranslate"><span class="pre">id</span></code> field assigns an unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.</p>
-<p>Let’s add two more methods to the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.</p>
+</div>
+<p>In this example, the <span class="lang-choices lang-id">id,go:Id</span> <span class="lang-choices lang-text">field,go:option</span> assigns a unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.</p>
+<p>Let’s add two more <span class="lang-choices lang-text">methods,go:functions</span> to the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, to add and retrieve documents. Be careful to insert them in the place indicated by the comment, leaving the remaining parts of the application untouched.</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-18" name="sd-tab-set-6" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-18">
@@ -520,11 +625,32 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-20" name="sd-tab-set-6" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-20">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">AddDocument</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">document</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Index</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">).</span><span class="nx">Id</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">Raw</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">document</span><span class="p">),</span>
+<span class="w">    </span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">GetDocument</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">get</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">).</span><span class="nx">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// more functions will be added here later</span>
+</pre></div>
+</div>
+<p>There are two new imports required by this added code that you need to insert at the top:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="s">&quot;strings&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/typedapi/core/get&quot;</span>
+<span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<p>The <span class="lang-choices lang-id">addDocument,py:add_document</span> method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.</p>
-<p>The <span class="lang-choices lang-id">getDocument,py:get_document</span> method takes a document identifier as an argument, and returns the document as a response.</p>
+</div>
+<p>The <span class="lang-choices lang-id">addDocument,py:add_document,go:AddDocument</span> <span class="lang-choices lang-text">method,go:function</span> takes a document, given as a <span class="lang-choices lang-text">object,py:dictionary,go:JSON string</span>, and an optional unique identifier for it. It inserts the document into the index, under the given identifier.</p>
+<p>The <span class="lang-choices lang-id">getDocument,py:get_document,go:GetDocument</span> method takes a document identifier as an argument, and returns the document as a response.</p>
 <p>To see the new methods in action, extend the command-line parsing at the bottom of the application with new <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">get</span></code> options:</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-21" name="sd-tab-set-7" type="radio">
@@ -540,8 +666,6 @@ Python</label><div class="sd-tab-content docutils">
         <span class="n">response</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_document</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;_source&#39;</span><span class="p">])</span>
     <span class="c1"># more commands will be added here later</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add and get&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -560,16 +684,26 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">_source</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">// more commands will be added here later</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add and get&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-23" name="sd-tab-set-7" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-23">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;add&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">AddDocument</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="s">`{</span>
+<span class="s">            &quot;title&quot;: &quot;Work From Home Policy&quot;,</span>
+<span class="s">            &quot;category&quot;: &quot;teams&quot;,</span>
+<span class="s">            &quot;content&quot;: &quot;The purpose of this full-time work-from-home policy is...&quot;</span>
+<span class="s">        }`</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">GetDocument</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">Source_</span><span class="p">))</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// more commands will be added here later</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>The new <code class="docutils literal notranslate"><span class="pre">add</span></code> command inserts a test document into the index, identified as <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">get</span></code> command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:</p>
@@ -599,7 +733,13 @@ node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> <
 <input id="sd-tab-item-26" name="sd-tab-set-8" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-26">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># insert a test document with id=&quot;1&quot;</span>
+go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>add
+
+<span class="c1"># retrieve document with id=&quot;1&quot;</span>
+go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">get</span></code> command should print the following information:</p>
@@ -610,17 +750,16 @@ Go</label><div class="sd-tab-content docutils">
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this response, the actual contents of the document are in the <code class="docutils literal notranslate"><span class="pre">_source</span></code> field. The other top-level fields are document metadata. You probably recognize the <code class="docutils literal notranslate"><span class="pre">_id</span></code> field, which has the document identifier, and <code class="docutils literal notranslate"><span class="pre">_index</span></code>, which has the index name.</p>
 </section>
 <section id="ingesting-documents-in-bulk">
 <h2>Ingesting documents in bulk<a class="headerlink" href="#ingesting-documents-in-bulk" title="Link to this heading">¶</a></h2>
-<p>When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client’s <code class="docutils literal notranslate"><span class="pre">index</span></code> method for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a <em>bulk</em> feature that allows you to send multiple index operations in a single call.</p>
-<p>Now you are going to implement a bulk ingest option using a dataset in <a class="reference external" href="https://github.com/ndjson/ndjson-spec">NDJSON</a> format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the dataset to the project directory using <code class="docutils literal notranslate"><span class="pre">curl</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>data.ndjsonhttps://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
+<p>When setting up a new Elasticsearch index for a real project, you are likely going to need to import a large number of documents. You could ingest all these documents by iterating over them and calling the client’s <span class="lang-choices lang-id">index,go:Index</span> <span class="lang-choices lang-text">method,go:function</span> for each, but this could take a long time for large datasets. To make this process more efficient, Elasticsearch provides a <em>bulk</em> feature that allows you to send multiple operations in a single call.</p>
+<p>Now you are going to implement a bulk ingest option using an example dataset in <a class="reference external" href="https://github.com/ndjson/ndjson-spec">NDJSON</a> format (Newline Delimited JSON), a format derived from JSON in which each line is a complete JSON object. Download the example dataset to the project directory using <code class="docutils literal notranslate"><span class="pre">curl</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-L<span class="w"> </span>-o<span class="w"> </span>data.ndjson<span class="w"> </span>https://gist.githubusercontent.com/miguelgrinberg/4aa9a1f046238ed4a4c478078d2387f8/raw/3fd8a29087e1f4b140c06f4f8604f8890af57657/data.ndjson
 </pre></div>
 </div>
 <p>The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.</p>
-<p>The <span class="lang-choices lang-id">addManyDocuments,py:add_many_documents</span> method shown below implements the bulk ingest solution.</p>
+<p>The <span class="lang-choices lang-id">addManyDocuments,py:add_many_documents,go:AddManyDocuments</span> <span class="lang-choices lang-text">method,go:function</span> shown below implements the bulk ingest solution.</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-27" name="sd-tab-set-9" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-27">
@@ -685,10 +824,55 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-29" name="sd-tab-set-9" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-29">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="nx">AddManyDocuments</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">dataFile</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">indexer</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">esutil</span><span class="p">.</span><span class="nx">NewBulkIndexer</span><span class="p">(</span><span class="nx">esutil</span><span class="p">.</span><span class="nx">BulkIndexerConfig</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Index</span><span class="p">:</span><span class="w">  </span><span class="nx">db</span><span class="p">.</span><span class="nx">Index</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">indexer</span><span class="p">.</span><span class="nx">Close</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">file</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">dataFile</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="nx">scanner</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewScanner</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">count</span><span class="o">++</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">indexer</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">esutil</span><span class="p">.</span><span class="nx">BulkIndexerItem</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Action</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;index&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">DocumentID</span><span class="p">:</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">count</span><span class="p">),</span>
+<span class="w">            </span><span class="nx">Body</span><span class="p">:</span><span class="w">       </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">()),</span>
+<span class="w">        </span><span class="p">});</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Err</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// more functions will be added here later</span>
+</pre></div>
+</div>
+<p>This code requires a few new imports, which you need to add at the top of the file:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="s">&quot;bufio&quot;</span>
+<span class="w">    </span><span class="s">&quot;strconv&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/elastic/go-elasticsearch/v9/esutil&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This function starts by creating a <code class="docutils literal notranslate"><span class="pre">BulkIndexer</span></code>. This is a specialized helper that accepts Elasticsearch operations and packages them into chunks before they are submitted. The indexer is configured with the instance of the Elasticsearch client and the index name. There are additional arguments that can be passed to control how the chunking logic works, but for this example the defaults are sufficient. The indexer has a <code class="docutils literal notranslate"><span class="pre">Close</span></code> function, so that is added as a deferred call.</p>
+<p>Next, file referenced by the <code class="docutils literal notranslate"><span class="pre">dataFile</span></code> argument is opened, and read line by line. For each line, the indexer’s <code class="docutils literal notranslate"><span class="pre">Add</span></code> function is called with a <code class="docutils literal notranslate"><span class="pre">BulkIndexerItem</span></code> argument. This structure defines an action, which in this case is always <code class="docutils literal notranslate"><span class="pre">&quot;index&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">DocumentId</span></code> attribute sets the unique identifier for each document, which is generated from a counter that is incremented before each line is processed. The <code class="docutils literal notranslate"><span class="pre">Body</span></code> attribute is set to the document data, given as a <code class="docutils literal notranslate"><span class="pre">Reader</span></code> instance.</p>
+<p>If no errors occur during the ingest, then the function returns the number of ingested documents.</p>
 </div>
 </div>
-<p>Let’s add a new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command to the application that uses the new method:</p>
+<p>Let’s now add a new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command that calls the new <span class="lang-choices lang-text">method,go:function</span>:</p>
 <div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-30" name="sd-tab-set-10" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-30">
@@ -697,8 +881,6 @@ Python</label><div class="sd-tab-content docutils">
         <span class="n">count</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">add_many_documents</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ingested </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> documents.&#39;</span><span class="p">)</span>
     <span class="c1"># more commands will be added here later</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add, get and bulk&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -710,16 +892,20 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Ingested </span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb"> documents.`</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">// more commands will be added here later</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error: valid commands are check, create, add, get and bulk&#39;</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-32" name="sd-tab-set-10" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-32">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;bulk&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">AddManyDocuments</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Ingested %d documents.\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// more commands will be added here</span>
+</pre></div>
+</div>
 </div>
 </div>
 <p>This new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the <em>data.ndjson</em> file as instructed above, and then run the ingest as follows:</p>
@@ -741,13 +927,15 @@ JavaScript</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-35" name="sd-tab-set-11" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="go" for="sd-tab-item-35">
 Go</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>go<span class="w"> </span>run<span class="w"> </span>./main.go<span class="w"> </span>bulk<span class="w"> </span>data.ndjson
+</pre></div>
+</div>
 </div>
 </div>
 <p>The output of this command should indicate that 15 documents were ingested.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>While this tutorial uses a small example dataset, the bulk ingest solution presented here is very robust and is able to scale to very large amounts of data. Thanks to the use of generators and the chunking applied by the bulk helper, it is possible to ingest datasets that are larger than the amount of memory available to the process.</p>
+<p>While this tutorial uses a small example dataset, the bulk ingest solution presented here is very robust and is able to scale to very large amounts of data. Thanks to the use of chunking, it is possible to ingest datasets that are larger than the amount of memory available to the process, since one one chunk is held in memory at a given time.</p>
 </div>
 </section>
 </section>
