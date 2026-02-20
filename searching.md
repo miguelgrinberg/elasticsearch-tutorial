@@ -64,12 +64,22 @@ await self.client.search({
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+response, err := Client.Search().Index("documents").Request(&search.Request{
+    Query: &types.Query{
+        Match: map[string]types.MatchQuery{
+            "content": {Query: "work from home"},
+        },
+    },
+}).Do(context.Background())
+```
 ::::
 
 :::::
 
-In this example, the `content` field of the 'documents' index is searched for the words `work from home`. The return value from the `search` method includes the documents that were found, each with a relevance score.
+In this example, the `content` field of the `documents` index is searched for the words `work from home`. The return value from the search includes the documents that were found, each with a relevance score.
+
+This example can be made into a new {lang-text}`method,go:function` in the application:
 
 :::::{tab-set}
 :sync-group: lang
@@ -115,7 +125,35 @@ The expresion `results.hits.hits` returns the list of documents that were found.
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+func (db DB) Search(ctx context.Context, searchQuery string) ([]types.Hit, error) {
+	response, err := db.Client.Search().Index(db.Index).Request(&search.Request{
+		Query: &types.Query{
+			Match: map[string]types.MatchQuery{
+				"content": {Query: searchQuery},
+			},
+		},
+	}).Do(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return response.Hits.Hits, nil
+}
+```
+
+The expression `response.Hits.Hits` returns the list of documents that were found.
+
+Once again there are additional imports that need to be added at the top of the file:
+
+```go
+import (
+    // ...
+    "github.com/elastic/go-elasticsearch/v9/typedapi/core/search"
+    "github.com/elastic/go-elasticsearch/v9/typedapi/types"
+)
+
+```
+
 ::::
 
 :::::
@@ -159,12 +197,24 @@ To use the search feature, add a `search` command-line argument that runs a sear
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+    } else if os.Args[1] == "search" {
+        results, err := db.Search(context.Background(), os.Args[2])
+        if err == nil {
+            for _, result := range results {
+                var doc Document
+                json.Unmarshal(result.Source_, &doc)
+                fmt.Printf("[%.3f] %s (id:%s)\n", *result.Score_, doc.Title, *result.Id_)
+            }
+        }
+```
+
 ::::
 
 :::::
 
-You can see that each result includes a `_score` attribute. This is the relevance score, with higher values meaning higher relevance. The `_source` field includes the document data, and `_id` includes the unique identifier of the document, both seen already.
+Each result includes a {lang-id}`_score,go:Score_` attribute. This is the relevance score, with higher values meaning higher relevance. The {lang-id}`_source,go:Source_` field includes the document data, and {lang-id}`_id,go:Id_` is set to the unique identifier of the document.{lang-text}`,go: Documents are unmarshaled into structs to work more conveniently with them.`
+
 
 You are now ready to search the index:
 
@@ -188,12 +238,14 @@ node main.js search "work from home"
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```bash
+go run ./main.go search "work from home"
+```
 ::::
 
 :::::
 
-The result is the list of documents that were found with the given words. The `search` command in this application prints the relevance score, the title and the identifier of each returned document.
+The result is the list of documents that were found with the given words. The `search` command in this application prints the relevance score, the title, and the identifier of each returned document:
 
 ```
 [6.235] Work From Home Policy (id:1)
@@ -259,7 +311,22 @@ Instead of adding yet another method, this time update the existing `search` met
 
 ::::{tab-item} Go
 :sync: go
-TODO
+```go
+func (db DB) Search(ctx context.Context, searchQuery string) ([]types.Hit, error) {
+    response, err := db.Client.Search().Index(db.Index).Request(&search.Request{
+        Query: &types.Query{
+            MultiMatch: &types.MultiMatchQuery{
+                Query:  searchQuery,
+                Fields: []string{"title", "summary", "content"},
+            },
+        },
+    }).Do(ctx)
+    if err != nil {
+        return nil, err
+    }
+    return response.Hits.Hits, nil
+}
+```
 ::::
 
 :::::

@@ -128,7 +128,7 @@ class DB:
         self.client.indices.delete(index=self.index, ignore_unavailable=True)
         self.client.indices.create(index=self.index)
 
-    # more methods will be added here later
+    # add more methods before this line
 
 
 if __name__ == '__main__':
@@ -137,10 +137,13 @@ if __name__ == '__main__':
         print(db.check())
     elif sys.argv[1] == 'create':
         db.create_index()
-    # more commands will be added here later
+    # add more commands before this line
     else:
         print('Error: unknown command')
 ```
+
+First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.
+
 ::::
 
 ::::{tab-item} JavaScript
@@ -172,7 +175,7 @@ class DB {
     await this.client.indices.create({ index: this.index });
   }
 
-  // more methods will be added here later
+  // add more methods before this line
 }
 
 async function main() {
@@ -183,7 +186,7 @@ async function main() {
   else if (process.argv[2] == 'create') {
     await db.createIndex('documents');
   }
-  // more commands will be added here later
+  // add more commands before this line
   else {
     console.log('Error: unknown command');
   }
@@ -191,6 +194,9 @@ async function main() {
 
 main();
 ```
+
+First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.
+
 ::::
 
 ::::{tab-item} Go
@@ -253,7 +259,7 @@ func (db DB) CreateIndex(ctx context.Context) error {
     return err
 }
 
-// more functions will be added here
+// add more functions before this line
 
 func main() {
     err := godotenv.Load()
@@ -274,7 +280,7 @@ func main() {
         }
     } else if os.Args[1] == "create" {
         err = db.CreateIndex(context.Background())
-    // more commands will be added here
+    // add more commands before this line
     } else {
         log.Fatal(fmt.Errorf("Error: unknown command"))
     }
@@ -287,10 +293,6 @@ func main() {
 
 :::::
 
-There are a few improvements in this version of the project.
-
-First of all, you will notice that there are new imports. Some of these imports are going to be unused for now, but they will be used later.
-
 The constructor of the `DB` {lang-text}`class,go:struct` now takes `index` name as an argument, the name of the index to use. This name is stored, so that it can be used in all operations later.
 
 The new {lang-id}`createIndex,py:create_index,go:CreateIndex` {lang-text}`method,go:function` first deletes the index with the name that was passed in the constructor. The {lang-id}`ignore_unavailable,go:IgnoreUnavailable` option, given to the delete call, prevents a failure when the index name isn't found. After deleting the index, a new index is created with that name.
@@ -298,7 +300,7 @@ The new {lang-id}`createIndex,py:create_index,go:CreateIndex` {lang-text}`method
 {lang-text}`In the main function,py:Then at the bottom`, an instance of the `DB` class is created with the index name `documents`, and then a simple command-line parser looks for a `check` or `create` argument. For `check`, it prints the results of calling the `check` method as the previous version of the application did, and for `create`, it calls the new {lang-id}`createIndex,py:create_index,go:CreateIndex` {lang-text}`method,go:function`.
 
 :::{hint}
-Note that there are comments in the code indicating the places where more functionality will be added later.
+Note the location of the `add more ___ before this line` comments in the code. These indicate the places where you will need to add more functionality later.
 :::
 
 Try calling this new version of the application with the `check` and `create` arguments as follows:
@@ -410,7 +412,7 @@ Let's add two more {lang-text}`methods,go:functions` to the `DB` class, to add a
     def get_document(self, id: str):
         return self.client.get(index=self.index, id=id)
 
-    # more methods will be added here later
+    # add more methods before this line
 ```
 ::::
 
@@ -426,7 +428,7 @@ Let's add two more {lang-text}`methods,go:functions` to the `DB` class, to add a
     return await this.client.get({ index: this.index, id: id });
   }
   
-  // more methods will be added here later
+  // add more methods before this line
 ```
 ::::
 
@@ -444,7 +446,7 @@ func (db DB) GetDocument(ctx context.Context, id string) (*get.Response, error) 
     return db.Client.Get(db.Index, id).Do(ctx)
 }
 
-// more functions will be added here later
+// add more functions before this line
 ```
 
 There are two new imports required by this added code that you need to insert at the top:
@@ -484,7 +486,7 @@ To see the new methods in action, extend the command-line parsing at the bottom 
     elif sys.argv[1] == 'get':
         response = db.get_document(sys.argv[2])
         print(response['_source'])
-    # more commands will be added here later
+    # add more commands before this line
 ```
 ::::
 
@@ -503,7 +505,7 @@ To see the new methods in action, extend the command-line parsing at the bottom 
     const response = await db.getDocument(process.argv[3]);
     console.log(response._source);
   }
-  // more commands will be added here later
+  // add more commands before this line
 ```
 ::::
 
@@ -521,7 +523,7 @@ To see the new methods in action, extend the command-line parsing at the bottom 
         if err == nil {
             fmt.Println(string(response.Source_))
         }
-    // more commands will be added here later
+    // add more commands before this line
 ```
 ::::
 
@@ -616,7 +618,7 @@ The {lang-id}`addManyDocuments,py:add_many_documents,go:AddManyDocuments` {lang-
             raise RuntimeError('Bulk ingest failure')
         return response[0]
 
-    # more methods will be added here later
+    # add more methods before this line
 ```
 
 Let's start to analyze this method from the `bulk` call. This function takes the client and a list of actions to perform as arguments. The `stats_only` given last requests that the return value from this function is just a summary of operations. This result will come as a tuple of two numbers indicating how many documents were processed and how many failed. For this application if there is at least one error a `RuntimeError` is raised. On success, the method returns the number of documents that were inserted into the index.
@@ -655,7 +657,7 @@ To assign unique identifiers to documents, the generator function maintains a co
     return result.total;
   }
 
-  // more methods will be added here later
+  // add more methods before this line
 ```
 
 Let's start to analyze this method from the `helpers.bulk` method of the client. This method takes the a list of actions to perform in the `datasource` argument, and a document processing function in `onDocument`. The return value of this method is an object with several details about the bulk operation, in particular how many documents were processed successfully and how many failed. For this application an excecption is raised if there is at least one error. On success, the method returns the number of documents that were inserted into the index.
@@ -702,7 +704,7 @@ func (db DB) AddManyDocuments(ctx context.Context, dataFile string) (int, error)
     return count, nil
 }
 
-// more functions will be added here later
+// add more functions before this line
 ```
 
 This code requires a few new imports, which you need to add at the top of the file:
@@ -737,7 +739,7 @@ Let's now add a new `bulk` command that calls the new {lang-text}`method,go:func
     elif sys.argv[1] == 'bulk':
         count = db.add_many_documents(sys.argv[2])
         print(f'Ingested {count} documents.')
-    # more commands will be added here later
+    # add more commands before this line
 ```
 ::::
 
@@ -748,7 +750,7 @@ Let's now add a new `bulk` command that calls the new {lang-text}`method,go:func
     const count = await db.addManyDocuments(process.argv[3]);
     console.log(`Ingested ${count} documents.`);
   }
-  // more commands will be added here later
+  // add more commands before this line
 ```
 ::::
 
@@ -760,7 +762,7 @@ Let's now add a new `bulk` command that calls the new {lang-text}`method,go:func
         if err == nil {
             fmt.Printf("Ingested %d documents.\n", count)
         }
-    // more commands will be added here
+    // add more commands before this line
 ```
 ::::
 
