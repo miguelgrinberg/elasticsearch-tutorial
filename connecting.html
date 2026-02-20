@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/ext_lang.css?v=1c60b765" />
+    <link rel="stylesheet" type="text/css" href="_static/ext_lang.css?v=08fe65d8" />
     
     
 
@@ -242,7 +242,7 @@
         <article role="main" id="furo-main-content">
           <section id="connecting-to-elasticsearch">
 <h1>Connecting to Elasticsearch<a class="headerlink" href="#connecting-to-elasticsearch" title="Link to this heading">¶</a></h1>
-<div class="sd-tab-set invisible-tab-set hidden docutils">
+<div class="sd-tab-set hidden docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-0">
 Python</label><div class="sd-tab-content docutils">
@@ -256,7 +256,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>In this section you are going to write code to connect to your Elasticsearch instance.</p>
 <p>To create a connection, an Elasticsearch client must be created with the appropriate connection options. You will now do this to verify that you can connect to the Elasticsearch instance created by <code class="docutils literal notranslate"><span class="pre">start-local</span></code>.</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
 Python</label><div class="sd-tab-content docutils">
@@ -275,8 +275,6 @@ Python</label><div class="sd-tab-content docutils">
 
     <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-
-    <span class="c1"># more methods will be added here later</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -304,8 +302,6 @@ JavaScript</label><div class="sd-tab-content docutils">
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">check</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">info</span><span class="p">();</span>
 <span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="c1">// more methods will be added here later</span>
 <span class="p">}</span>
 
 <span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -321,7 +317,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is where all the database logic for the project will be defined. In the class constructor, an instance of the Elasticsearch client is created. The Elasticsearch URL and the API key are read from the environment and passed as arguments, to allow the client to authenticate.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">check</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class calls the <code class="docutils literal notranslate"><span class="pre">info</span></code> method of the client and returns its response. Calling the <code class="docutils literal notranslate"><span class="pre">info</span></code> method is often done as a way to test that a connection to the Elasticsearch server can be established. If the call succeeds, some basic information about the Elasticsearch instance is returned.</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
 Python</label><div class="sd-tab-content docutils">
@@ -338,7 +334,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <p>Run the application as follows:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
 Python</label><div class="sd-tab-content docutils">

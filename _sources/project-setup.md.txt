@@ -1,5 +1,5 @@
 # Project Set Up
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
 :class: hidden
 
@@ -25,8 +25,9 @@ mkdir elasticsearch-tutorial
 cd elasticsearch-tutorial
 ```
 
-:::::{invisible-tab-set}
+:::::{tab-set}
 :sync-group: lang
+:class: invisible-tabs
 
 ::::{tab-item} Python
 :sync: py

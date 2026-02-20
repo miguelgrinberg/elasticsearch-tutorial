@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
-    <link rel="stylesheet" type="text/css" href="_static/ext_lang.css?v=1c60b765" />
+    <link rel="stylesheet" type="text/css" href="_static/ext_lang.css?v=08fe65d8" />
     
     
 
@@ -242,7 +242,7 @@
         <article role="main" id="furo-main-content">
           <section id="working-with-documents-and-indices">
 <h1>Working with Documents and Indices<a class="headerlink" href="#working-with-documents-and-indices" title="Link to this heading">¶</a></h1>
-<div class="sd-tab-set invisible-tab-set hidden docutils">
+<div class="sd-tab-set hidden docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-0">
 Python</label><div class="sd-tab-content docutils">
@@ -260,7 +260,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <section id="creating-an-index">
 <h2>Creating an index<a class="headerlink" href="#creating-an-index" title="Link to this heading">¶</a></h2>
 <p>This is how you create an Elasticsearch index using the Python client library:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-2">
 Python</label><div class="sd-tab-content docutils">
@@ -281,7 +281,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>Indices in Elasticsearch are identified with a name, which is passed as an argument to most methods of the client. An Elasticsearch server can store multiple indices, each with its own collection of documents.</p>
 </div>
 <p>Here is how to delete an index:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-4">
 Python</label><div class="sd-tab-content docutils">
@@ -299,7 +299,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>If you attempt to create an index with a name that is already assigned to an existing index, you will get an error.</p>
 <p>Next you will add a <span class="lang-choices lang-id">createIndex,py:create_index</span> method to the application, along with a few other improvements.</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-6">
 Python</label><div class="sd-tab-content docutils">
@@ -397,8 +397,12 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>The constructor of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class now takes the <code class="docutils literal notranslate"><span class="pre">index</span></code> name as an argument. This name is stored in an <code class="docutils literal notranslate"><span class="pre">index</span></code> instance variable.</p>
 <p>The new <span class="lang-choices lang-id">createIndex,py:create_index</span> method first deletes the index with the name that was passed in the constructor. The <code class="docutils literal notranslate"><span class="pre">ignore_unavailable</span></code> option, given to the <code class="docutils literal notranslate"><span class="pre">delete</span></code> call, prevents a failure when the index name isn’t found. After deleting the index, a new index is created with that name.</p>
 <p>Then at the bottom, an instance of the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class is created with the index name <code class="docutils literal notranslate"><span class="pre">documents</span></code>, and then a simple command-line parser looks for a <code class="docutils literal notranslate"><span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">create</span></code> argument. For <code class="docutils literal notranslate"><span class="pre">check</span></code>, it prints the results of calling the <code class="docutils literal notranslate"><span class="pre">check</span></code> method as the previous version of the application, and for <code class="docutils literal notranslate"><span class="pre">create</span></code>, it calls the new <span class="lang-choices lang-id">createIndex,py:create_index</span> method.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Note the comments in the code indicating the places where more functionality will be added later.</p>
+</div>
 <p>Try calling this new version of the application with the <code class="docutils literal notranslate"><span class="pre">check</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> arguments as follows:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-8">
 Python</label><div class="sd-tab-content docutils">
@@ -426,7 +430,7 @@ node<span class="w"> </span>main.js<span class="w"> </span>create
 <section id="adding-documents-to-an-index">
 <h2>Adding documents to an index<a class="headerlink" href="#adding-documents-to-an-index" title="Link to this heading">¶</a></h2>
 <p>Elasticsearch documents are represented as <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON</a> objects with a set of key/value pairs. To add a document to an index, the <code class="docutils literal notranslate"><span class="pre">index</span></code> method of the Elasticsearch client is used. Here is an example:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-10">
 Python</label><div class="sd-tab-content docutils">
@@ -456,7 +460,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 <p>In this example, the <code class="docutils literal notranslate"><span class="pre">id</span></code> field assigns an unique identifier to the document. If it is omitted, Elasticsearch assigns a randomly generated identifier on its own. The document identifier can later be used to retrieve, update or delete the document in the index.</p>
 <p>Let’s add two more methods to the <code class="docutils literal notranslate"><span class="pre">DB</span></code> class, to add and retrieve documents. Be careful to insert the new methods in the place indicated by the comment, leaving remaining parts of the application untouched.</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-12" name="sd-tab-set-6" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-12">
 Python</label><div class="sd-tab-content docutils">
@@ -489,7 +493,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 <p>The <span class="lang-choices lang-id">addDocument,py:add_document</span> method a document, given as a dictionary, and an optional identifier for it. It inserts the document into the index, under the given identifier if one was provided, or with a randomly generated one if not.</p>
 <p>The <span class="lang-choices lang-id">getDocument,py:get_document</span> method takes a document identifier as an argument, and returns the document as a response.</p>
 <p>To see the new methods in action, extend the command-line parsing at the bottom of the application with new <code class="docutils literal notranslate"><span class="pre">add</span></code> and <code class="docutils literal notranslate"><span class="pre">get</span></code> options:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-14" name="sd-tab-set-7" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-14">
 Python</label><div class="sd-tab-content docutils">
@@ -531,7 +535,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <p>The new <code class="docutils literal notranslate"><span class="pre">add</span></code> command inserts a test document into the index, identified as <code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">get</span></code> command retrieves the document with the identifier given in the command and prints it to the terminal. Try these commands as follows:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-16" name="sd-tab-set-8" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-16">
 Python</label><div class="sd-tab-content docutils">
@@ -583,7 +587,7 @@ node<span class="w"> </span>main.js<span class="w"> </span>get<span class="w"> <
 </div>
 <p>The new ingest solution will read and parse documents from this file one by one and feed them to the bulk helper provided by the Elasticsearch client. The bulk helper will then assemble bulk requests and send them to Elasticsearch.</p>
 <p>The <span class="lang-choices lang-id">addManyDocuments,py:add_many_documents</span> method shown below implements the bulk ingest solution.</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-18" name="sd-tab-set-9" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-18">
 Python</label><div class="sd-tab-content docutils">
@@ -646,7 +650,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <p>Let’s add a new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command to the application that uses the new method:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-20" name="sd-tab-set-10" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-20">
 Python</label><div class="sd-tab-content docutils">
@@ -675,7 +679,7 @@ JavaScript</label><div class="sd-tab-content docutils">
 </div>
 </div>
 <p>This new <code class="docutils literal notranslate"><span class="pre">bulk</span></code> command takes an argument that is the filename of the NDJSON data file to ingest. Make sure you have downloaded the <em>data.ndjson</em> file as instructed above, and then run the ingest as follows:</p>
-<div class="sd-tab-set invisible-tab-set docutils">
+<div class="sd-tab-set invisible-tabs docutils">
 <input checked="checked" id="sd-tab-item-22" name="sd-tab-set-11" type="radio">
 <label class="sd-tab-label" data-sync-group="lang" data-sync-id="py" for="sd-tab-item-22">
 Python</label><div class="sd-tab-content docutils">
